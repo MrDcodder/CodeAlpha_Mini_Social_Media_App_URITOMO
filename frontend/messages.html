@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Hanken+Grotesk:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script>try{tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-container":"#b4b5b5","secondary":"#c6c6c7","on-primary-fixed-variant":"#6600b6","on-secondary-fixed":"#1a1c1c","inverse-on-surface":"#313030","on-tertiary-fixed":"#1c1b1b","primary":"#dbb8ff","on-primary-fixed":"#2b0052","primary-fixed-dim":"#dbb8ff","on-surface":"#e5e2e1","inverse-primary":"#8512e7","tertiary":"#c8c6c5","secondary-fixed":"#e2e2e2","background":"#131313","outline":"#988ca1","tertiary-fixed-dim":"#c8c6c5","outline-variant":"#4c4355","on-surface-variant":"#cfc2d8","surface-container-high":"#2a2a2a","on-primary":"#480082","inverse-surface":"#e5e2e1","on-tertiary-fixed-variant":"#474746","secondary-fixed-dim":"#c6c6c7","on-error":"#690005","secondary-container":"#454747","error":"#ffb4ab","surface-dim":"#131313","surface-variant":"#353534","surface-container":"#201f1f","primary-container":"#9d3bff","surface-container-low":"#1c1b1b","on-background":"#e5e2e1","error-container":"#93000a","tertiary-container":"#757474","surface-tint":"#dbb8ff","on-tertiary":"#313030","primary-fixed":"#efdbff","tertiary-fixed":"#e5e2e1","on-tertiary-container":"#fffbfb","on-primary-container":"#fffbff","surface-container-lowest":"#0e0e0e","on-secondary":"#2f3131","surface-container-highest":"#353534","surface":"#131313","on-error-container":"#ffdad6","on-secondary-fixed-variant":"#454747","surface-bright":"#3a3939"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{gutter:"12px","margin-desktop":"24px","margin-mobile":"16px",unit:"4px","container-max":"1200px"},fontFamily:{"body-md":["Plus Jakarta Sans"],"label-bold":["Hanken Grotesk"],"display-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"]},fontSize:{"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"label-bold":["12px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"700"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"800"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}]}}}}catch(_e){}</script></head><body class="bg-background text-on-background font-body-md overflow-hidden">
+<aside class="h-screen w-20 lg:w-64 hidden md:flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-8 gap-y-4 z-50"><div class="px-6 mb-8"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxyz_YQJRSLLQhbB0L6VHXIjWOzDgcTfHrLYEUYR4h6HxXzNOv4nqRqOgnBPbjC1TGdTClE1BzuP8VjYI-Y1sJHRl1cM87yVo7IXrJFn0PgEgITrFiWnwGcCBOQ-2VG07E5F5F5dvRC8bibC2n1mEscMkiwbqIDru2TgdcUnZZ9_EgxO44hTYiGGAFP-JnGFJ-wgCGLaLfQOGNxg3PNi9e1BkNQlZe8XfhVQIm2VkSJB8lFkMGPiphMOsNesPI9tdGIMk24IMT1wWcIQ" alt="Uritomo" class="h-8 w-auto"></div>
+<nav class="flex flex-col gap-2">
+<a href="/" class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined mr-4">home</span><span class="font-label-bold hidden lg:block">Home</span></a>
+<a href="/search.html" class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined mr-4">search</span><span class="font-label-bold hidden lg:block">Explore</span></a>
+<a href="/messages.html" class="flex items-center px-6 py-4 text-primary border-r-4 border-primary bg-primary/10"><span class="material-symbols-outlined mr-4" style="font-variation-settings:'FILL'1">chat_bubble</span><span class="font-label-bold hidden lg:block">Messages</span></a>
+<a href="/profile.html" class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined mr-4">person</span><span class="font-label-bold hidden lg:block">Profile</span></a>
+<a href="/settings.html" class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined mr-4">settings</span><span class="font-label-bold hidden lg:block">Settings</span></a>
+</nav></aside>
+<main class="flex-1 md:ml-20 lg:ml-64 flex flex-col md:flex-row h-screen">
+<section class="w-full md:w-80 lg:w-96 flex flex-col border-r border-outline-variant/30 bg-surface-container-lowest/50"><header class="h-16 flex items-center justify-between px-6 border-b border-outline-variant/30"><h1 class="font-headline-md text-headline-md text-on-surface">Messages</h1></header>
+<div class="p-4"><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span><input class="w-full bg-surface-container rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary text-on-surface border-none" placeholder="Search" type="text"></div></div>
+<div id="conversations-list" class="flex-1 overflow-y-auto pb-20 md:pb-0">
+<div class="text-center py-12 text-on-surface-variant">Loading conversations...</div>
+</div></section>
+<section class="flex-1 flex flex-col bg-background/30 overflow-hidden hidden md:flex">
+<div id="chat-placeholder" class="flex-1 flex items-center justify-center"><div class="text-center"><span class="material-symbols-outlined text-6xl text-on-surface-variant/30">chat</span><p class="text-on-surface-variant mt-4">Select a conversation</p></div></div>
+<div id="chat-area" class="hidden flex-1 flex flex-col">
+<header id="chat-header" class="h-16 flex items-center gap-3 px-6 border-b border-outline-variant/30 bg-surface-container-lowest/80"><div class="w-10 h-10 rounded-full bg-surface-container-high" id="chat-avatar"></div><div><h2 class="font-bold text-on-surface text-body-lg" id="chat-name">User</h2><p class="text-[10px] text-primary uppercase font-bold" id="chat-status">Offline</p></div></header>
+<div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+<footer class="p-4 bg-surface-container-lowest/80 border-t border-outline-variant/30"><div class="flex items-center gap-4 bg-surface-container rounded-2xl p-2"><input id="message-input" class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-on-surface-variant/50 py-2" placeholder="Type a message..." type="text"><button onclick="sendMessage()" class="bg-primary text-on-primary w-10 h-10 flex items-center justify-center rounded-xl active:scale-90"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">send</span></button></div></footer></div></section></main>
+<nav class="fixed bottom-0 w-full md:hidden bg-surface-container/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 pb-safe z-50">
+<a href="/" class="text-on-secondary-container flex flex-col items-center"><span class="material-symbols-outlined">home</span><span class="font-label-bold text-[10px]">Home</span></a>
+<a href="/search.html" class="text-on-secondary-container flex flex-col items-center"><span class="material-symbols-outlined">search</span><span class="font-label-bold text-[10px]">Search</span></a>
+<a href="/messages.html" class="text-primary scale-110 flex flex-col items-center"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">chat</span><span class="font-label-bold text-[10px]">Chat</span></a>
+<a href="/profile.html" class="text-on-secondary-container flex flex-col items-center"><span class="material-symbols-outlined">person</span><span class="font-label-bold text-[10px]">User</span></a>
+<a href="/settings.html" class="text-on-secondary-container flex flex-col items-center"><span class="material-symbols-outlined">menu</span><span class="font-label-bold text-[10px]">Menu</span></a>
+</nav>
+<script src="/app.js"></script>
+<script>
+if (!requireAuth()) {}
+
+let selectedUserId = null;
+
+async function loadConversations() {
+  try {
+    const data = await getConversations();
+    const list = document.getElementById('conversations-list');
+    if (data.conversations.length === 0) {
+      list.innerHTML = '<div class="text-center py-12 text-on-surface-variant px-6">No conversations yet. Start chatting!</div>';
+      return;
+    }
+    list.innerHTML = data.conversations.map(c => `
+      <div class="flex items-center gap-4 px-6 py-4 hover:bg-surface-variant/30 cursor-pointer border-b border-outline-variant/10 ${selectedUserId === c.user_id ? 'bg-primary/5 border-r-2 border-primary' : ''}" onclick="selectConversation('${c.user_id}', '${escapeHtml(c.display_name)}', '${escapeHtml(c.avatar_url)}')">
+        <div class="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" src="${escapeHtml(c.avatar_url)}"></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex justify-between"><h3 class="font-label-bold text-on-surface truncate">${escapeHtml(c.display_name)}</h3><span class="text-[10px] text-on-surface-variant">${formatTime(c.last_message_at)}</span></div>
+          <p class="text-body-md text-on-surface-variant truncate">${c.last_sender_id === getUser()?.id ? 'You: ' : ''}${escapeHtml(c.last_message || '')}</p>
+        </div>
+        ${c.unread_count > 0 ? `<span class="bg-primary text-on-primary text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">${c.unread_count}</span>` : ''}
+      </div>
+    `).join('');
+  } catch (err) {
+    document.getElementById('conversations-list').innerHTML = '<div class="text-center py-12 text-error">Failed to load</div>';
+  }
+}
+
+function selectConversation(userId, displayName, avatarUrl) {
+  selectedUserId = userId;
+  document.getElementById('chat-area').classList.remove('hidden');
+  document.getElementById('chat-placeholder').classList.add('hidden');
+  document.getElementById('chat-name').textContent = displayName;
+  document.getElementById('chat-avatar').innerHTML = `<img class="w-full h-full rounded-full object-cover" src="${avatarUrl}">`;
+  document.getElementById('chat-status').textContent = 'Online';
+  loadMessages(userId);
+  loadConversations();
+}
+
+async function loadMessages(userId) {
+  try {
+    const data = await getMessages(userId);
+    const container = document.getElementById('chat-messages');
+    const currentUserId = getUser().id;
+    
+    container.innerHTML = data.messages.map(m => `
+      <div class="flex ${m.sender_id === currentUserId ? 'justify-end' : 'justify-start'}">
+        <div class="max-w-[70%] ${m.sender_id === currentUserId ? 'bg-primary text-on-primary rounded-2xl rounded-br-none' : 'bg-surface-container text-on-surface rounded-2xl rounded-bl-none'} p-4">
+          <p class="text-body-md">${escapeHtml(m.content)}</p>
+          <span class="text-[10px] mt-2 block text-right ${m.sender_id === currentUserId ? 'text-on-primary/60' : 'text-on-surface-variant'}">${formatTime(m.created_at)}</span>
+        </div>
+      </div>
+    `).join('');
+    
+    container.scrollTop = container.scrollHeight;
+  } catch (err) {
+    showToast('Failed to load messages', 'error');
+  }
+}
+
+async function sendMessage() {
+  const input = document.getElementById('message-input');
+  const content = input.value.trim();
+  if (!content || !selectedUserId) return;
+  
+  try {
+    await sendMessage(selectedUserId, content);
+    input.value = '';
+    loadMessages(selectedUserId);
+  } catch (err) {
+    showToast('Failed to send message', 'error');
+  }
+}
+
+document.getElementById('message-input').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+
+loadConversations();
+</script>
+</body></html>

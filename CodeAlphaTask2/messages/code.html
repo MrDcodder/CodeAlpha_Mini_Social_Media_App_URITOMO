@@ -1,0 +1,410 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Hanken+Grotesk:wght@700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><meta charset="utf-8"><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#b4b5b5",
+                    "secondary": "#c6c6c7",
+                    "on-primary-fixed-variant": "#6600b6",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "inverse-on-surface": "#313030",
+                    "on-tertiary-fixed": "#1c1b1b",
+                    "primary": "#dbb8ff",
+                    "on-primary-fixed": "#2b0052",
+                    "primary-fixed-dim": "#dbb8ff",
+                    "on-surface": "#e5e2e1",
+                    "inverse-primary": "#8512e7",
+                    "tertiary": "#c8c6c5",
+                    "secondary-fixed": "#e2e2e2",
+                    "background": "#131313",
+                    "outline": "#988ca1",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "outline-variant": "#4c4355",
+                    "on-surface-variant": "#cfc2d8",
+                    "surface-container-high": "#2a2a2a",
+                    "on-primary": "#480082",
+                    "inverse-surface": "#e5e2e1",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-error": "#690005",
+                    "secondary-container": "#454747",
+                    "error": "#ffb4ab",
+                    "surface-dim": "#131313",
+                    "surface-variant": "#353534",
+                    "surface-container": "#201f1f",
+                    "primary-container": "#9d3bff",
+                    "surface-container-low": "#1c1b1b",
+                    "on-background": "#e5e2e1",
+                    "error-container": "#93000a",
+                    "tertiary-container": "#757474",
+                    "surface-tint": "#dbb8ff",
+                    "on-tertiary": "#313030",
+                    "primary-fixed": "#efdbff",
+                    "tertiary-fixed": "#e5e2e1",
+                    "on-tertiary-container": "#fffbfb",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-secondary": "#2f3131",
+                    "surface-container-highest": "#353534",
+                    "surface": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#454747",
+                    "surface-bright": "#3a3939"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "12px",
+                    "margin-desktop": "24px",
+                    "margin-mobile": "16px",
+                    "unit": "4px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-bold": ["Hanken Grotesk"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    }catch(_e){}</script></head><body class="bg-background text-on-background font-body-md selection:bg-primary/30 overflow-hidden">
+<!-- Background Shader -->
+<!-- STITCH_SHADER_START:ANIMATION_3 class="fixed inset-0 w-full h-full opacity-40 z-0" -->
+<div class="fixed inset-0 w-full h-full opacity-40 z-0" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_3" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_3');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `<webgl-shader>
+precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+void main() {
+    vec2 uv = v_texCoord;
+    float noise = sin(uv.x * 10.0 + u_time) * cos(uv.y * 10.0 + u_time) * 0.1;
+    vec3 color = mix(vec3(0.05, 0.05, 0.07), vec3(0.12, 0.1, 0.2), uv.y + noise);
+    gl_FragColor = vec4(color, 1.0);
+}
+</webgl-shader>`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_3 -->
+<!-- App Layout Container -->
+<div class="relative z-10 flex h-screen overflow-hidden">
+<!-- Sidebar Navigation (Mandatory Shared Component) -->
+<aside class="h-screen w-20 lg:w-64 hidden md:flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-8 gap-y-4">
+<div class="px-6 mb-8">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxyz_YQJRSLLQhbB0L6VHXIjWOzDgcTfHrLYEUYR4h6HxXzNOv4nqRqOgnBPbjC1TGdTClE1BzuP8VjYI-Y1sJHRl1cM87yVo7IXrJFn0PgEgITrFiWnwGcCBOQ-2VG07E5F5F5dvRC8bibC2n1mEscMkiwbqIDru2TgdcUnZZ9_EgxO44hTYiGGAFP-JnGFJ-wgCGLaLfQOGNxg3PNi9e1BkNQlZe8XfhVQIm2VkSJB8lFkMGPiphMOsNesPI9tdGIMk24IMT1wWcIQ" alt="Uritomo Logo" class="h-8 w-auto object-contain">
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-4">home</span>
+<span class="font-label-bold text-label-bold hidden lg:block">Home</span>
+</a>
+<a class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-4">search</span>
+<span class="font-label-bold text-label-bold hidden lg:block">Explore</span>
+</a>
+<!-- Active State: Messages -->
+<a class="flex items-center px-6 py-4 text-primary border-r-4 border-primary bg-primary/10 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-4" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-label-bold text-label-bold hidden lg:block">Messages</span>
+</a>
+<a class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-4">person</span>
+<span class="font-label-bold text-label-bold hidden lg:block">Profile</span>
+</a>
+<a class="flex items-center px-6 py-4 text-on-surface-variant hover:bg-surface-variant transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-4">settings</span>
+<span class="font-label-bold text-label-bold hidden lg:block">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-6">
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-xl font-label-bold text-label-bold hover:shadow-[0_0_15px_rgba(219,184,255,0.3)] transition-all">
+                    Post
+                </button>
+</div>
+</aside>
+<!-- Main Content (Shifted for SideNav) -->
+<main class="flex-1 md:ml-20 lg:ml-64 flex flex-col md:flex-row h-full">
+<!-- Left Column: Active Chats List -->
+<section class="w-full md:w-80 lg:w-96 flex flex-col border-r border-outline-variant/30 bg-surface-container-lowest/50 backdrop-blur-md">
+<header class="h-16 flex items-center justify-between px-6 border-b border-outline-variant/30">
+<h1 class="font-headline-md text-headline-md text-on-surface">Messages</h1>
+<button class="material-symbols-outlined text-primary">edit_square</button>
+</header>
+<div class="p-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container text-body-md font-body-md rounded-full py-2 pl-10 pr-4 border-none focus:ring-2 focus:ring-primary text-on-surface" placeholder="Search direct messages" type="text">
+</div>
+</div>
+<div class="flex-1 overflow-y-auto pb-20 md:pb-0">
+<!-- Chat Item 1 (Active) -->
+<div class="flex items-center gap-4 px-6 py-4 bg-primary/5 border-r-2 border-primary cursor-pointer">
+<div class="relative online-pulse">
+<img class="w-12 h-12 rounded-full border-2 border-primary object-cover" data-alt="A professional close-up studio portrait of a high-fashion model with striking features and sleek hair, lit by dramatic purple and blue neon rim lighting against a pitch black background. The style is ultra-modern, cinematic, and sleek, reflecting a high-end digital persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgcs_DMDxDvtksCaw2UKdkYvID9hssIB0J3dzEjhtWrP3y2ZSr76lDF4iRSawLWlupXOE3cyhPxWuN-AuhH6lEfPhaCuDtbc-hLROVkcezVHIj_LZcyHV1MGw2_iK-DUr5DStDNAwUFmles5CBYn492_aCXhZlLWg1fmFVaqX0SDrhDv1jGJ4tOvG3kwwWhTndNBoPB8nSUkVgipPNiB3e9ooD2Sha9srkQAgkauVQfiUdwpszOR6y">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-label-bold text-label-bold text-on-surface truncate">Evelyn Vora</h3>
+<span class="text-[10px] text-on-surface-variant">2m</span>
+</div>
+<p class="text-body-md font-body-md text-primary truncate font-bold">sent a photo</p>
+</div>
+</div>
+<!-- Chat Item 2 -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<div class="relative">
+<img class="w-12 h-12 rounded-full border border-outline-variant object-cover" data-alt="A portrait of a tech-savvy creative male with glasses, wearing a minimalist black turtleneck. The lighting is low-key with a subtle magenta glow, highlighting a sharp jawline. The background is a dark, abstract digital environment with soft bokeh effects." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOsC-dn5Ki5LB00dJ26uYKZ2Fd4zBGrwRA9vdSZRQjefCkn0o4RaqtujbCc6DAGcrZg7Ns1L2BuaDLPojWPkk4vbsBhPwQA_KfazpFR2SPl3xXd2BqHTvtMPG2W9qIC9bypFS0Pbd0sB6HV38aOLzWt8Y8bQuuebf4I6boZVGDussvD3_btBWnQAZ3OLhddH7S_5QQ5_oBTrAudNzQ72eOBgpnahywUPNlruG_OUfkf9eqwA8pvwIU">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-label-bold text-label-bold text-on-surface truncate">Marcus Chen</h3>
+<span class="text-[10px] text-on-surface-variant">1h</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant truncate">The layout looks incredible...</p>
+</div>
+</div>
+<!-- -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<div class="relative online-pulse">
+<img class="w-12 h-12 rounded-full border border-outline-variant object-cover" data-alt="A stylized digital avatar of a young woman with neon-streaked hair and cyberpunk-inspired makeup. The lighting is vibrant and high-contrast, featuring deep blacks and electric purples. She is set in a futuristic urban environment at night." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtFYjXbxJfLkj8qWqCM55a4riwBmgizbPtBhxR0iUR_wm-gbDTj1DNvgLxCfxR3lndpneGXMXfaVDekIewR_QPhiW_dUOA1yt79eRYxCKiDGxwanO8RG2lcfSwYEpKpUTRhXgQKd_70leVT0BR47FoKGDwrQKcBN3R8nQH-hT575VjRAgRzidGPRVV5JmHL4E6l2AMTzAMDGqnWjsubtwTVzPbhWDjbx1q_CLqxuiePYlir0lrD7La">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-label-bold text-label-bold text-on-surface truncate">Sora Digital</h3>
+<span class="text-[10px] text-on-surface-variant">4h</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant truncate">Did you see the latest drop?</p>
+</div>
+</div>
+<!-- More items for scroll depth -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-surface-variant/30 transition-colors cursor-pointer">
+<div class="relative">
+<img class="w-12 h-12 rounded-full border border-outline-variant object-cover" data-alt="A minimalist architectural designer portrait. Soft shadows, warm amber lighting, sophisticated black attire. High-end aesthetic with a background of brushed metal and dark wood textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn-jjIAOXYoFh42xfLotli8lWcZnIZFeVguxUXgIHYQZWcW78bi4_gqLNkqCpviyM5djurEmdWuGVjjS8k5wZ-CWFMU8wMJz4xAzdATGhfTerdOhA0Gpj8Q9C4up5SDBAbcHmVuitV7C7oRoxItPwlAEbK74DbstLc1ttu1jWZ6SGEeZiyiiqcI2BEDdfB1vijd547YHYXqlRRoYc4Z8oS8Y15zdX5Vj0_XT7zHjTC5b1StD359K2V">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-label-bold text-label-bold text-on-surface truncate">Elena Rossi</h3>
+<span class="text-[10px] text-on-surface-variant">Yesterday</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant truncate">Talk later.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Active Chat Window -->
+<section class="flex-1 flex flex-col bg-background/30 backdrop-blur-sm overflow-hidden h-full">
+<!-- Chat Header -->
+<header class="h-16 flex items-center justify-between px-6 border-b border-outline-variant/30 bg-surface-container-lowest/80 backdrop-blur-xl sticky top-0 z-20">
+<div class="flex items-center gap-3">
+<div class="relative online-pulse">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A professional close-up studio portrait of a high-fashion model with striking features and sleek hair, lit by dramatic purple and blue neon rim lighting against a pitch black background. The style is ultra-modern, cinematic, and sleek, reflecting a high-end digital persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-RbLITcVRsEtqOiFkQrrJc2YnYlOphktvsMHLDqI8FoqCzWhxnjBIgfsh1wayzNSzHfZLWo6YMzNtuedbcN_XtJAAw1EW56I-AuYy2H_BrZKP5bdCcqNIWDYbl_kYdsAAj8aTQmZnM9x0PQfGydZcf2rDR9cvD442vOjnWcRI7tzLrhVTJtl_K3QP1kO9C5vZH6U6qi0hqsAT94YYc6GTLyncWp55ci9qzPYv41U-VCGGaWGOXVci">
+</div>
+<div class="">
+<h2 class="font-headline-md text-body-lg font-bold text-on-surface">Evelyn Vora</h2>
+<p class="text-[10px] text-primary uppercase tracking-widest font-bold">Online</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant/30 text-on-surface hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant/30 text-on-surface hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">videocam</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant/30 text-on-surface hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">info</span>
+</button>
+</div>
+</header>
+<!-- Messages Feed -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6 flex flex-col">
+<div class="self-center">
+<span class="px-3 py-1 bg-surface-container text-[10px] font-label-bold text-on-surface-variant rounded-full border border-outline-variant/20">TODAY</span>
+</div>
+<!-- Message Received -->
+<div class="flex items-end gap-3 max-w-[80%]">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A professional close-up studio portrait of a high-fashion model with striking features and sleek hair, lit by dramatic purple and blue neon rim lighting against a pitch black background. The style is ultra-modern, cinematic, and sleek, reflecting a high-end digital persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt1GLoGfO18uK4X888bMWXDHDyOLKU35_VUK5ED-v00FN7r_rhl8R8wuhVwsAzao0VPSxGoGeQi1dAaBB0nV-w0k063is-27qjhFBDvUqCqanqdm3L_-RF6sifDfNQIj68hWcqXKEMwtZjQatZlEux_kY0-3kskz__dGQGFexmCPnmbFGGTYbYn3wUjmTXNYoSHonnpKM8QSV5Kxett7h3Q6iBHffH3xS1uLzBLNm5621YYUm9bYJl">
+<div class="p-4 rounded-2xl rounded-bl-none glass-panel text-on-surface shadow-xl relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<p class="text-body-md font-body-md leading-relaxed">The new motion design assets for the NOIR project are ready for review. I've integrated the high-contrast obsidian palette you suggested.</p>
+<span class="text-[10px] text-on-surface-variant mt-2 block text-right">10:42 AM</span>
+</div>
+</div>
+<!-- Message Sent -->
+<div class="flex items-end gap-3 max-w-[80%] self-end flex-row-reverse">
+<div class="p-4 rounded-2xl rounded-br-none bg-primary text-on-primary shadow-[0_0_20px_rgba(219,184,255,0.2)]">
+<p class="text-body-md font-body-md leading-relaxed">Incredible. Can you send a preview of the main interface animation? I want to check the glassmorphism blur intensity.</p>
+<span class="text-[10px] text-on-primary/60 mt-2 block text-right">10:44 AM</span>
+</div>
+</div>
+<!-- Image Message Received -->
+<div class="flex items-end gap-3 max-w-[80%]">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A professional close-up studio portrait of a high-fashion model with striking features and sleek hair, lit by dramatic purple and blue neon rim lighting against a pitch black background. The style is ultra-modern, cinematic, and sleek, reflecting a high-end digital persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlmXMZU_FVTf8aBUiozMhNmPHnuxgrYv9wV6fMn4bIyUAWHfybqbmTYnko8OSL8PCAzocLhVSvCWtS9jDJcO7LV7t3KggvmM8hLK9ejbeBbaDlZ7BdulRTwGB-CnLseUN-OuvsLLHiemVAMsRl68azEGIXMyhChpKlpYqaWgj3ceD7_xavE7XysKFYuVaZcjL8XsfF_emHVpB7ITeHYyn9krVHN5fBgdTUIXnJiAs-3PcOQotAcvCK">
+<div class="p-2 rounded-2xl rounded-bl-none glass-panel shadow-2xl">
+<div class="w-64 h-48 rounded-xl bg-cover bg-center mb-2" data-alt="A high-fidelity 3D UI render of a glassmorphic social media dashboard. The interface features translucent cards, vibrant purple accent glows, and sharp typography. The background is a dark obsidian landscape with flowing organic light waves." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCYC9TXYOSyNvWhODBQU25PRslQkObz8kwXsnnvkKN6uGvoGXoGlNgzDTeurUjuQUrsHg8YTj0_QNdUH8tZ0L4dgCWGG58ifJu08qbdO__y18r8TW14CuX63oICuHqBm6n9Jiaxs9Wro4C1fbkjIuJ-rvnn94cWWtzBIKxK0_Ieb0Q0-hghde2x12iFk3GCjcHS4gnFxGvkRRb-ExS-2ES9QQJlDNjm1ZIqZcChVCDrIHjKjUKT9RN3')"></div>
+<p class="px-2 pb-2 text-body-md font-body-md text-on-surface italic">Here is the primary layout sample.</p>
+<span class="text-[10px] text-on-surface-variant px-2 block text-right">10:45 AM</span>
+</div>
+</div>
+<!-- Typing Indicator -->
+<div class="flex items-center gap-2 text-on-surface-variant">
+<div class="flex gap-1 px-3 py-2 bg-surface-container rounded-full">
+<div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"></div>
+<div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:0.2s]"></div>
+<div class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:0.4s]"></div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<footer class="p-4 bg-surface-container-lowest/80 backdrop-blur-2xl border-t border-outline-variant/30">
+<div class="max-w-4xl mx-auto flex items-center gap-4 bg-surface-container rounded-2xl p-2 border border-outline-variant/20 focus-within:border-primary/50 transition-colors">
+<div class="flex gap-1">
+<button class="w-10 h-10 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-primary transition-all active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600;">add_circle</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-primary transition-all active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600;">image</span>
+</button>
+</div>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface font-body-md placeholder:text-on-surface-variant/50 py-2" placeholder="Type a message..." type="text">
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-xl text-on-surface-variant hover:text-primary transition-all active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600;">mood</span>
+</button>
+<button class="bg-primary text-on-primary w-10 h-10 flex items-center justify-center rounded-xl shadow-[0_0_15px_rgba(219,184,255,0.4)] active:scale-90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</footer>
+</section>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 w-full md:hidden bg-surface-container/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 pb-safe z-50">
+<a class="text-on-secondary-container flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-bold text-[10px]">Home</span>
+</a>
+<a class="text-on-secondary-container flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-bold text-[10px]">Search</span>
+</a>
+<a class="text-primary scale-110 flex flex-col items-center" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="font-label-bold text-[10px]">Chat</span>
+</a>
+<a class="text-on-secondary-container flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-bold text-[10px]">User</span>
+</a>
+<a class="text-on-secondary-container flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">menu</span>
+<span class="font-label-bold text-[10px]">Menu</span>
+</a>
+</nav>
+</div>
+<script>
+        // Micro-interaction for message bubbles
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            panel.addEventListener('mousemove', (e) => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                panel.style.setProperty('--mouse-x', `${x}px`);
+                panel.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+
+</body></html>

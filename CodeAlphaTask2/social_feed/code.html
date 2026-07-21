@@ -1,0 +1,480 @@
+<!DOCTYPE html><html lang="en" class="dark" style=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Hanken+Grotesk:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><meta charset="utf-8"><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#b4b5b5",
+                    "secondary": "#c6c6c7",
+                    "on-primary-fixed-variant": "#6600b6",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "inverse-on-surface": "#313030",
+                    "on-tertiary-fixed": "#1c1b1b",
+                    "primary": "#dbb8ff",
+                    "on-primary-fixed": "#2b0052",
+                    "primary-fixed-dim": "#dbb8ff",
+                    "on-surface": "#e5e2e1",
+                    "inverse-primary": "#8512e7",
+                    "tertiary": "#c8c6c5",
+                    "secondary-fixed": "#e2e2e2",
+                    "background": "#131313",
+                    "outline": "#988ca1",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "outline-variant": "#4c4355",
+                    "on-surface-variant": "#cfc2d8",
+                    "surface-container-high": "#2a2a2a",
+                    "on-primary": "#480082",
+                    "inverse-surface": "#e5e2e1",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-error": "#690005",
+                    "secondary-container": "#454747",
+                    "error": "#ffb4ab",
+                    "surface-dim": "#131313",
+                    "surface-variant": "#353534",
+                    "surface-container": "#201f1f",
+                    "primary-container": "#9d3bff",
+                    "surface-container-low": "#1c1b1b",
+                    "on-background": "#e5e2e1",
+                    "error-container": "#93000a",
+                    "tertiary-container": "#757474",
+                    "surface-tint": "#dbb8ff",
+                    "on-tertiary": "#313030",
+                    "primary-fixed": "#efdbff",
+                    "tertiary-fixed": "#e5e2e1",
+                    "on-tertiary-container": "#fffbfb",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-secondary": "#2f3131",
+                    "surface-container-highest": "#353534",
+                    "surface": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#454747",
+                    "surface-bright": "#3a3939"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "12px",
+                    "margin-desktop": "24px",
+                    "margin-mobile": "16px",
+                    "unit": "4px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-bold": ["Hanken Grotesk"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script></head><body class="font-body-md text-body-md selection:bg-primary/30">
+<!-- Global Background Shader -->
+<!-- STITCH_SHADER_START:ANIMATION_3 class="fixed inset-0 w-full h-full z-[-1] opacity-40" -->
+<div class="fixed inset-0 w-full h-full z-[-1] opacity-40" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_3" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_3');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `<webgl-shader>
+precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+void main() {
+    vec2 uv = v_texCoord;
+    float noise = sin(uv.x * 10.0 + u_time) * cos(uv.y * 10.0 + u_time) * 0.1;
+    vec3 color = mix(vec3(0.05, 0.05, 0.07), vec3(0.12, 0.1, 0.2), uv.y + noise);
+    gl_FragColor = vec4(color, 1.0);
+}
+</webgl-shader>`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_3 -->
+<!-- Side Navigation Bar (Desktop) -->
+<aside class="h-screen w-64 hidden lg:flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-8 gap-y-4 z-40">
+<div class="px-6 mb-8">
+<img src="https://lh3.googleusercontent.com/aida/AP1WRLt039MXa5t6h24WsDJoD7xwqYgssquFRii3lzNaRxU96AKrFpbSNeW3JwmDzqJYXuZeRMs9fEgK_G2Z2HJy8_vqGkCAJmrl7ppqnSKMieAzaUEKAI1bOAeeyaa3JwCohaxDiDYIS3waU4gQPG3CLcj9ufUpksBjVunKUBsc3a07H-Cu_1SlNpDWx2VTRgNSRSAUGaz6H638EliWHMVr6ZzWLgjaeEbCT7k0UEwMGPsYi-NmOzeGR_NFNDE" alt="Uritomo Logo" class="h-10 w-auto object-contain mb-2">
+
+</div>
+<nav class="flex flex-col w-full">
+<a class="flex items-center px-6 py-4 gap-4 text-primary border-r-4 border-primary bg-primary/10 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">home</span>
+<span class="font-label-bold text-label-bold">Home</span>
+</a>
+<a class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant hover:scale-105 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-bold text-label-bold">Explore</span>
+</a>
+<a class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant hover:scale-105 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-bold text-label-bold">Messages</span>
+</a>
+<a class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant hover:scale-105 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-bold text-label-bold">Profile</span>
+</a>
+<a class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant hover:scale-105 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-bold text-label-bold">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-6">
+<button class="w-full bg-primary text-on-primary font-label-bold text-label-bold py-4 rounded-xl hover:shadow-[0_0_15px_rgba(219,184,255,0.3)] active:scale-95 transition-all">
+                Post
+            </button>
+</div>
+</aside>
+<!-- Top Navigation Bar (Mobile/Sticky) -->
+<header class="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-xl border-b border-outline-variant/30 shadow-2xl flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 lg:left-64 lg:w-[calc(100%-16rem)]">
+<img src="https://lh3.googleusercontent.com/aida/AP1WRLt039MXa5t6h24WsDJoD7xwqYgssquFRii3lzNaRxU96AKrFpbSNeW3JwmDzqJYXuZeRMs9fEgK_G2Z2HJy8_vqGkCAJmrl7ppqnSKMieAzaUEKAI1bOAeeyaa3JwCohaxDiDYIS3waU4gQPG3CLcj9ufUpksBjVunKUBsc3a07H-Cu_1SlNpDWx2VTRgNSRSAUGaz6H638EliWHMVr6ZzWLgjaeEbCT7k0UEwMGPsYi-NmOzeGR_NFNDE" alt="Uritomo Logo" class="h-8 w-auto object-contain lg:hidden">
+<div class="hidden lg:block">
+<span class="font-headline-md text-headline-md text-on-surface">Home</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary transition-transform active:scale-95">notifications</button>
+<button class="material-symbols-outlined text-primary transition-transform active:scale-95">auto_awesome</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a futuristic user with neon highlights on their skin, obsidian black background, cinematic lighting, 8k resolution, techno-noir style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKSYErJyCN_ZFoCnH4UcPTfXR5uEwGFlQZMKpoKqMtbagr3kM4VHdhlWkMqgU8aAePXBH5tRDWIjmVUZPTyYnVS3y05WnVH9OJ3HP1mtMxFaAkjlcIQIIzYZ2Tleu_I1HHHGHlgkuk-0xGd6TcahEl-hgydmcwM3gfL1LkXoEhsKNzwQqZx-vVLYVE1aBv1ZVRZKXXh8M93_-ILTubzgKTU-S0nHrp8q-mR-fiFns9u0vilXCV97x6">
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 lg:pl-64 lg:pr-80 min-h-screen">
+<div class="max-w-[700px] mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Feed Toggle -->
+<div class="flex p-1 bg-surface-container-low border border-outline-variant/30 rounded-full mb-8 sticky top-20 z-30 shadow-xl backdrop-blur-md">
+<button class="flex-1 py-3 rounded-full font-label-bold text-label-bold transition-all duration-300 bg-primary text-on-primary shadow-lg" id="toggle-multimedia" onclick="switchFeed('multimedia')">
+                    Multimedia
+                </button>
+<button class="flex-1 py-3 rounded-full font-label-bold text-label-bold transition-all duration-300 text-on-surface-variant hover:text-primary" id="toggle-literature" onclick="switchFeed('literature')">
+                    Literature
+                </button>
+</div>
+<!-- Multimedia Feed Section -->
+<div class="content-transition active-tab space-y-8" id="multimedia-feed">
+<!-- Multimedia Post 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl overflow-hidden shadow-2xl group">
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary/30 p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Professional avatar of a digital artist, wearing high-tech fashion, soft glowing eyes, minimalist dark room background, purple accents, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_jNGvfj7jDC7ss0tbK1sVYXGKmiffP6UQPsAL6sDC11CH0e2a7D1TemFIEYNYHFcX8QFaj4qdX5TSx9P1fhFSSlJSfcbhpGs_X4Wk4qx94OYXxn06hihcLAlHnq4bcZ_IQUr7pKyMTyFt5-qSd8PNec7hm96OzMV_VXe74w1FjOIbat8CwSodF_wfFc05hIDNmSg2odF6s8moMlXZRsOteq3PTykUol4y4dNL8pxfqBUQJJMIfNqC">
+</div>
+<div>
+<p class="font-label-bold text-on-surface">cyber_junkie</p>
+<p class="text-[10px] text-on-surface-variant">2h ago • Shibuya, Tokyo</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant">more_horiz</button>
+</div>
+<div class="aspect-square bg-surface-container-high relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Ultra-realistic cyberpunk street scene at night with vibrant electric purple and cyan neon signs reflecting on wet asphalt, futuristic vehicles, deep obsidian shadows, cinematic atmosphere, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOY0GpKAqHyEFvcXPolnbH49hwe-fcwUvYMa4vbeUt32TjSgdmUW_BlC7dk-GSuT-a9JY2BG5vxnOw3LUW6acI3w8iSLaFjNl4XxpwsoF6IoueFOQpUsJj2OzqkhjgMUqIzulbFVqrjfZ5mABr8Qek6uoMTLAsH9Xe1LZLGKGO_6MT-TJj-OiHveZwUa3f5e3cWX9V1lvNTrIqjBWVPY4teqqIZUCRUJcvP3SXDwYad0r3kWNO_hrf">
+</div>
+<div class="p-4 space-y-3">
+<div class="flex items-center gap-5">
+<button class="social-btn material-symbols-outlined text-primary">favorite</button>
+<button class="social-btn material-symbols-outlined text-on-surface">chat_bubble</button>
+<button class="social-btn material-symbols-outlined text-on-surface">send</button>
+<button class="ml-auto social-btn material-symbols-outlined text-on-surface">bookmark</button>
+</div>
+<p class="text-body-md"><span class="font-bold mr-2">cyber_junkie</span>Rainy nights in the grid. The neon pulse never stops. #technonoir #cyberpunk #neon</p>
+<p class="text-[12px] text-on-surface-variant cursor-pointer hover:text-primary transition-colors">View all 142 comments</p>
+</div>
+</article>
+<!-- Multimedia Post 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl overflow-hidden shadow-2xl group">
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary/30 p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Creative female profile, artistic lighting, dark studio setting, holding a digital tablet that glows in electric purple, high-end techno-noir aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjWGhTUhwcCGJFgKVIKNMdtqXvgqRJmKtcK7F-uqrIvL_DYxKwaj23W_bDpKuM7cKWUWoV_bLFFTgLl8NRiE0xUDuCOjZFHNBt-e4CTV_yM8V05KwXl_MNvY8oKowRJET4NnU6dpXfKKkI9O84czvx9y8ylLTF9wveQimuz4L36Uwbj-By0CrH8m4Gx21nyNobxRMnkm0VSUQZlqlS9DVDVNUtCcS6HXsibEPaZU-1Lvb89ogr95df">
+</div>
+<div class="">
+<p class="font-label-bold text-on-surface">luna_designs</p>
+<p class="text-[10px] text-on-surface-variant">5h ago • Neo Berlin</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant">more_horiz</button>
+</div>
+<div class="aspect-video bg-surface-container-high relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Abstract 3D architectural visualization of a futuristic skyscraper made of dark obsidian glass and glowing fiber-optic cables, dramatic low-angle shot, starry night sky, electric purple highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtIP2Z9c9MxkmaszMpIyuWiKgO1-jKytWzgiYa0Y-W1KvGhP-uUldM_Jr7IdHx1WM_7GPv_de5Re_eoSuKoKZy1qRmdtyGMOWWQUVfWPI3kJZ7F_s-b1GulNu9fsjb7KslIhk3mENSbW2E0VXXJFmw8yTNDyFfzd2DRKBZpuLhha399aJKwFRIRVmulgQqVRAAJj8Vfa5aKq7XkRYZ6k_MiOCzxPFR07RqHP-SUFlIRHzDLoLew2yR">
+</div>
+<div class="p-4 space-y-3">
+<div class="flex items-center gap-5">
+<button class="social-btn material-symbols-outlined text-primary" style="font-variation-settings: &quot;FILL&quot; 1;">favorite</button>
+<button class="social-btn material-symbols-outlined text-on-surface">chat_bubble</button>
+<button class="social-btn material-symbols-outlined text-on-surface">send</button>
+<button class="ml-auto social-btn material-symbols-outlined text-on-surface">bookmark</button>
+</div>
+<p class="text-body-md"><span class="font-bold mr-2">luna_designs</span>Architecture for the year 2099. Structured chaos in obsidian. #future #design</p>
+</div>
+</article>
+</div>
+<!-- Literature Feed Section -->
+<div class="content-transition hidden-tab space-y-6" id="literature-feed">
+<!-- Blog Post 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant/40 p-8 rounded-xl shadow-2xl relative group hover:border-primary/40 transition-colors">
+<div class="flex items-center gap-3 mb-6">
+<img class="w-10 h-10 rounded-full object-cover grayscale" data-alt="Close up of a writers hands typing on a high-tech transparent mechanical keyboard with electric purple backlighting, dark moody room, atmospheric smoke, techno-noir style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBerR5g4k1H0VqonXjXP0gM4P36wzREXTI-YrS2T_BensYgaVckZQMIAvhX39LhkTIlUidS6ddbLtMjanufoDHp4eC5Qe8h3ZJLoD7gKVOtlfFhkFYnDJMhZSi2Haw_zyTpodMw-XsrJyfkwbX5moJzDTsr_pXS8gktp5WWtWvq1Iw9gQ7W6n7kkwIWgXX0QHRdlkaNXXOaPx9HgVq16bGZGwtIQr45DdfsQqBW810yyLPW9SBOD0Jr">
+<div>
+<p class="font-label-bold text-primary">Archivist_X</p>
+<p class="text-[10px] text-on-surface-variant">Read time: 6 min</p>
+</div>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors">The Ghost in the Terminal: A Digital Manifest</h2>
+<p class="text-body-lg text-on-surface-variant leading-relaxed mb-6">
+                        In the age of hyper-connectivity, the space between the data and the user has vanished. We no longer observe the machine; we inhabit it. The obsidian interface is not a barrier—it is a reflection of our collective late-night consciousness...
+                    </p>
+<div class="flex items-center justify-between border-t border-outline-variant/20 pt-6">
+<div class="flex gap-4">
+<span class="text-primary bg-primary/10 px-3 py-1 rounded-full font-label-bold text-label-bold">Culture</span>
+<span class="text-on-surface-variant bg-surface-variant px-3 py-1 rounded-full font-label-bold text-label-bold">Analysis</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="social-btn material-symbols-outlined text-on-surface-variant hover:text-primary">favorite</button>
+<button class="social-btn material-symbols-outlined text-on-surface-variant hover:text-primary">bookmark</button>
+<button class="social-btn material-symbols-outlined text-on-surface-variant hover:text-primary">share</button>
+</div>
+</div>
+</article>
+<!-- Blog Post 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant/40 p-8 rounded-xl shadow-2xl group hover:border-primary/40 transition-colors">
+<div class="flex items-center gap-3 mb-6">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Abstract macro shot of human eye reflecting digital binary code in electric purple, dark moody background, high resolution, macro photography, futuristic concept." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJOy5pZyal1oDbK1P6xZKv66zPsfj7WtM4-8GKgYN5kS5--YIwrmQrdmFHJMgPpnhizCXhcOjlw_E73VWCrAI8pnacwzD9Ho8OaOzFPfUFsHb89ZvlCTkoC8C4pnkTCJ2g3rSC3Azvq315Wp3N360HEhOPYggdGCP0640omZIBOsNVwpIsM9p5tv71dGfIE3yNioUKziARBc-0mlsvYMuvpsCcE-FsAqScfMb4hsRhAjcvV172nHv7">
+<div>
+<p class="font-label-bold text-primary">Nexus_Insight</p>
+<p class="text-[10px] text-on-surface-variant">Read time: 12 min</p>
+</div>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors">Obsidian Speed: Efficiency in High-Contrast Design</h2>
+<p class="text-body-lg text-on-surface-variant leading-relaxed mb-6">
+                        Why does the eye crave the dark? The science behind our obsession with deep interfaces and vibrant accents reveals more about our cognitive load than we think. Explore the psychology of techno-noir...
+                    </p>
+<div class="flex items-center justify-between border-t border-outline-variant/20 pt-6">
+<div class="flex gap-4">
+<span class="text-primary bg-primary/10 px-3 py-1 rounded-full font-label-bold text-label-bold">UX Design</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="social-btn material-symbols-outlined text-on-surface-variant hover:text-primary">favorite</button>
+<button class="social-btn material-symbols-outlined text-on-surface-variant hover:text-primary">bookmark</button>
+</div>
+</div>
+</article>
+</div>
+</div>
+</main>
+<!-- Right Sidebar (Trending) -->
+<aside class="fixed right-0 top-16 h-[calc(100vh-4rem)] w-80 hidden lg:flex flex-col p-6 gap-6 border-l border-outline-variant/30 bg-background/40 backdrop-blur-md z-30">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded-full py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary focus:outline-none text-on-surface placeholder:text-on-surface-variant" placeholder="Search" type="text">
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Trending for you</h3>
+<div class="space-y-6">
+<div class="cursor-pointer group">
+<p class="text-[10px] text-on-surface-variant">Trending in Technology</p>
+<p class="font-label-bold text-label-bold text-on-surface group-hover:text-primary transition-colors">#NeuralLink2</p>
+<p class="text-[10px] text-on-surface-variant">45.2K Posts</p>
+</div>
+<div class="cursor-pointer group">
+<p class="text-[10px] text-on-surface-variant">Politics • Trending</p>
+<p class="font-label-bold text-label-bold text-on-surface group-hover:text-primary transition-colors">NeoTokyo Elections</p>
+<p class="text-[10px] text-on-surface-variant">12.8K Posts</p>
+</div>
+<div class="cursor-pointer group">
+<p class="text-[10px] text-on-surface-variant">Design • Trending</p>
+<p class="font-label-bold text-label-bold text-on-surface group-hover:text-primary transition-colors">Glassmorphism2025</p>
+<p class="text-[10px] text-on-surface-variant">8.1K Posts</p>
+</div>
+<div class="cursor-pointer group">
+<p class="text-[10px] text-on-surface-variant">Entertainment • Trending</p>
+<p class="font-label-bold text-label-bold text-on-surface group-hover:text-primary transition-colors">Noir Night Live</p>
+<p class="text-[10px] text-on-surface-variant">32.4K Posts</p>
+</div>
+</div>
+<button class="text-primary font-label-bold text-label-bold mt-6 hover:underline">Show more</button>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Who to follow</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container"></div>
+<div class="leading-tight">
+<p class="font-label-bold text-on-surface text-[12px]">NeonArchitect</p>
+<p class="text-[10px] text-on-surface-variant">@the_builder</p>
+</div>
+</div>
+<button class="bg-on-surface text-background font-label-bold text-[10px] px-4 py-1.5 rounded-full hover:bg-primary transition-colors">Follow</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary"></div>
+<div class="leading-tight">
+<p class="font-label-bold text-on-surface text-[12px]">SynthWave</p>
+<p class="text-[10px] text-on-surface-variant">@audio_pulse</p>
+</div>
+</div>
+<button class="bg-on-surface text-background font-label-bold text-[10px] px-4 py-1.5 rounded-full hover:bg-primary transition-colors">Follow</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="fixed bottom-0 w-full lg:hidden rounded-t-xl bg-surface-container/80 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_30px_rgba(0,0,0,0.5)] flex justify-around items-center h-20 pb-safe z-50">
+<a class="flex flex-col items-center gap-1 text-primary scale-110" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">home</span>
+<span class="font-label-bold text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-secondary-container hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-bold text-[10px]">Search</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-secondary-container hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-bold text-[10px]">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-secondary-container hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-bold text-[10px]">User</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-secondary-container hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">menu</span>
+<span class="font-label-bold text-[10px]">Menu</span>
+</a>
+</nav>
+<script>
+        function switchFeed(type) {
+            const multiBtn = document.getElementById('toggle-multimedia');
+            const litBtn = document.getElementById('toggle-literature');
+            const multiFeed = document.getElementById('multimedia-feed');
+            const litFeed = document.getElementById('literature-feed');
+
+            if (type === 'multimedia') {
+                // Update Buttons
+                multiBtn.classList.add('bg-primary', 'text-on-primary', 'shadow-lg');
+                multiBtn.classList.remove('text-on-surface-variant');
+                litBtn.classList.remove('bg-primary', 'text-on-primary', 'shadow-lg');
+                litBtn.classList.add('text-on-surface-variant');
+
+                // Update Feed Visibility
+                litFeed.classList.replace('active-tab', 'hidden-tab');
+                setTimeout(() => {
+                    multiFeed.classList.replace('hidden-tab', 'active-tab');
+                }, 100);
+            } else {
+                // Update Buttons
+                litBtn.classList.add('bg-primary', 'text-on-primary', 'shadow-lg');
+                litBtn.classList.remove('text-on-surface-variant');
+                multiBtn.classList.remove('bg-primary', 'text-on-primary', 'shadow-lg');
+                multiBtn.classList.add('text-on-surface-variant');
+
+                // Update Feed Visibility
+                multiFeed.classList.replace('active-tab', 'hidden-tab');
+                setTimeout(() => {
+                    litFeed.classList.replace('hidden-tab', 'active-tab');
+                }, 100);
+            }
+        }
+
+        // Like button interaction
+        document.querySelectorAll('.social-btn.material-symbols-outlined:first-child').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('text-error');
+                const isFilled = this.style.fontVariationSettings === "'FILL' 1";
+                this.style.fontVariationSettings = isFilled ? "'FILL' 0" : "'FILL' 1";
+                
+                // Pop animation
+                this.style.transform = 'scale(1.5) rotate(15deg)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1.2) rotate(15deg)';
+                }, 200);
+            });
+        });
+    </script>
+
+</body></html>

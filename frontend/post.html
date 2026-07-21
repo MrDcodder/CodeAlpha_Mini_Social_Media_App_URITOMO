@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Hanken+Grotesk:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script>try{tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-container":"#b4b5b5","secondary":"#c6c6c7","on-primary-fixed-variant":"#6600b6","on-secondary-fixed":"#1a1c1c","inverse-on-surface":"#313030","on-tertiary-fixed":"#1c1b1b","primary":"#dbb8ff","on-primary-fixed":"#2b0052","primary-fixed-dim":"#dbb8ff","on-surface":"#e5e2e1","inverse-primary":"#8512e7","tertiary":"#c8c6c5","secondary-fixed":"#e2e2e2","background":"#131313","outline":"#988ca1","tertiary-fixed-dim":"#c8c6c5","outline-variant":"#4c4355","on-surface-variant":"#cfc2d8","surface-container-high":"#2a2a2a","on-primary":"#480082","inverse-surface":"#e5e2e1","on-tertiary-fixed-variant":"#474746","secondary-fixed-dim":"#c6c6c7","on-error":"#690005","secondary-container":"#454747","error":"#ffb4ab","surface-dim":"#131313","surface-variant":"#353534","surface-container":"#201f1f","primary-container":"#9d3bff","surface-container-low":"#1c1b1b","on-background":"#e5e2e1","error-container":"#93000a","tertiary-container":"#757474","surface-tint":"#dbb8ff","on-tertiary":"#313030","primary-fixed":"#efdbff","tertiary-fixed":"#e5e2e1","on-tertiary-container":"#fffbfb","on-primary-container":"#fffbff","surface-container-lowest":"#0e0e0e","on-secondary":"#2f3131","surface-container-highest":"#353534","surface":"#131313","on-error-container":"#ffdad6","on-secondary-fixed-variant":"#454747","surface-bright":"#3a3939"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{gutter:"12px","margin-desktop":"24px","margin-mobile":"16px",unit:"4px","container-max":"1200px"},fontFamily:{"body-md":["Plus Jakarta Sans"],"label-bold":["Hanken Grotesk"],"display-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"]},fontSize:{"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"label-bold":["12px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"700"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"800"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}]}}}}catch(_e){}</script></head><body class="bg-background text-on-surface font-body-md">
+<main class="max-w-2xl mx-auto px-4 md:px-6 pt-6 pb-24">
+<a href="/" class="inline-flex items-center gap-2 text-primary hover:underline mb-6"><span class="material-symbols-outlined">arrow_back</span> Back to feed</a>
+<div id="post-detail" class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl overflow-hidden"><div class="animate-pulse p-8 space-y-4"><div class="h-8 bg-surface-container rounded w-1/3"></div><div class="h-4 bg-surface-container rounded w-1/2"></div><div class="h-32 bg-surface-container rounded"></div></div></div>
+<div id="comments-section" class="mt-8"><h3 class="font-headline-md text-headline-md text-on-surface mb-6">Comments</h3>
+<div id="comments-list" class="space-y-4"></div>
+<div class="mt-6 flex gap-3"><input id="comment-input" class="flex-1 bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary" placeholder="Add a comment..." type="text"><button onclick="postComment()" class="bg-primary text-on-primary px-6 py-3 rounded-xl font-label-bold active:scale-95">Post</button></div></div>
+</main>
+<script src="/app.js"></script>
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get('id');
+
+async function loadPost() {
+  try {
+    const data = await getPost(postId);
+    const p = data.post;
+    
+    const mediaHtml = p.media_url ? `<div class="aspect-video bg-surface-container-high"><img class="w-full h-full object-cover" src="${escapeHtml(p.media_url)}"></div>` : '';
+    
+    document.getElementById('post-detail').innerHTML = `
+      <div class="p-4 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full border-2 border-primary/30"><img class="w-full h-full rounded-full object-cover" src="${escapeHtml(p.avatar_url)}"></div>
+        <div><p class="font-label-bold">${escapeHtml(p.display_name || p.username)}</p><p class="text-[10px] text-on-surface-variant">${formatTime(p.created_at)}</p></div>
+      </div>
+      ${mediaHtml}
+      <div class="p-4 space-y-3">
+        <p class="text-body-md">${escapeHtml(p.content || '')}</p>
+        <div class="flex items-center gap-5 text-on-surface-variant">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined">favorite</span> ${p.like_count}</span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined">chat_bubble</span> ${p.comment_count}</span>
+        </div>
+      </div>
+    `;
+    
+    // Comments
+    const commentsList = document.getElementById('comments-list');
+    if (data.comments.length === 0) {
+      commentsList.innerHTML = '<div class="text-center py-8 text-on-surface-variant">No comments yet. Be the first!</div>';
+    } else {
+      commentsList.innerHTML = data.comments.map(c => `
+        <div class="flex gap-3 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4">
+          <div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" src="${escapeHtml(c.avatar_url)}"></div>
+          <div><p class="font-label-bold text-sm">${escapeHtml(c.display_name || c.username)} <span class="text-on-surface-variant font-normal text-xs">${formatTime(c.created_at)}</span></p>
+          <p class="text-body-md">${escapeHtml(c.content)}</p></div>
+        </div>
+      `).join('');
+    }
+  } catch (err) {
+    document.getElementById('post-detail').innerHTML = '<div class="text-center py-12 text-error">Post not found</div>';
+  }
+}
+
+async function postComment() {
+  const input = document.getElementById('comment-input');
+  const content = input.value.trim();
+  if (!content) return;
+  
+  try {
+    await createComment(postId, content);
+    input.value = '';
+    showToast('Comment added!');
+    loadPost();
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+loadPost();
+</script>
+</body></html>
+

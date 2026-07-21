@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Hanken+Grotesk:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script>try{tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-container":"#b4b5b5","secondary":"#c6c6c7","on-primary-fixed-variant":"#6600b6","on-secondary-fixed":"#1a1c1c","inverse-on-surface":"#313030","on-tertiary-fixed":"#1c1b1b","primary":"#dbb8ff","on-primary-fixed":"#2b0052","primary-fixed-dim":"#dbb8ff","on-surface":"#e5e2e1","inverse-primary":"#8512e7","tertiary":"#c8c6c5","secondary-fixed":"#e2e2e2","background":"#131313","outline":"#988ca1","tertiary-fixed-dim":"#c8c6c5","outline-variant":"#4c4355","on-surface-variant":"#cfc2d8","surface-container-high":"#2a2a2a","on-primary":"#480082","inverse-surface":"#e5e2e1","on-tertiary-fixed-variant":"#474746","secondary-fixed-dim":"#c6c6c7","on-error":"#690005","secondary-container":"#454747","error":"#ffb4ab","surface-dim":"#131313","surface-variant":"#353534","surface-container":"#201f1f","primary-container":"#9d3bff","surface-container-low":"#1c1b1b","on-background":"#e5e2e1","error-container":"#93000a","tertiary-container":"#757474","surface-tint":"#dbb8ff","on-tertiary":"#313030","primary-fixed":"#efdbff","tertiary-fixed":"#e5e2e1","on-tertiary-container":"#fffbfb","on-primary-container":"#fffbff","surface-container-lowest":"#0e0e0e","on-secondary":"#2f3131","surface-container-highest":"#353534","surface":"#131313","on-error-container":"#ffdad6","on-secondary-fixed-variant":"#454747","surface-bright":"#3a3939"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{gutter:"12px","margin-desktop":"24px","margin-mobile":"16px",unit:"4px","container-max":"1200px"},fontFamily:{"body-md":["Plus Jakarta Sans"],"label-bold":["Hanken Grotesk"],"display-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"]},fontSize:{"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"label-bold":["12px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"700"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"800"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}]}}}}catch(_e){}</script></head><body class="bg-background text-on-surface font-body-md">
+<main class="max-w-2xl mx-auto px-4 md:px-6 pt-6 pb-24">
+<header class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4"><a href="/" class="material-symbols-outlined text-primary">arrow_back</a><h1 class="font-headline-md text-headline-md text-on-surface">Notifications</h1></div>
+<button onclick="markAllRead()" class="text-primary font-label-bold text-sm hover:underline">Mark all read</button>
+</header>
+<div id="notifications-list" class="space-y-3"><div class="text-center py-16 text-on-surface-variant">Loading...</div></div>
+</main>
+<script src="/app.js"></script>
+<script>
+async function loadNotifications() {
+  try {
+    const data = await getNotifications();
+    const list = document.getElementById('notifications-list');
+    if (data.notifications.length === 0) {
+      list.innerHTML = '<div class="text-center py-16 text-on-surface-variant"><span class="material-symbols-outlined text-6xl">notifications_none</span><p class="mt-4">No notifications yet</p></div>';
+      return;
+    }
+    list.innerHTML = data.notifications.map(n => `
+      <div class="flex items-center gap-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 ${!n.is_read ? 'border-l-4 border-l-primary' : ''}">
+        <div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden"><img class="w-full h-full object-cover" src="${escapeHtml(n.avatar_url || '')}"></div>
+        <div class="flex-1">
+          <p class="text-body-md"><span class="font-bold">${escapeHtml(n.display_name || 'Someone')}</span> 
+            ${n.type === 'like' ? 'liked your post' : n.type === 'comment' ? 'commented on your post' : n.type === 'follow' ? 'followed you' : 'interacted with your content'}
+          </p>
+          <p class="text-xs text-on-surface-variant">${formatTime(n.created_at)}</p>
+        </div>
+      </div>
+    `).join('');
+  } catch (err) {
+    document.getElementById('notifications-list').innerHTML = '<div class="text-center py-16 text-error">Failed to load</div>';
+  }
+}
+
+async function markAllRead() {
+  try {
+    await markAllNotificationsRead();
+    showToast('All marked as read');
+    loadNotifications();
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+loadNotifications();
+</script>
+</body></html>
+

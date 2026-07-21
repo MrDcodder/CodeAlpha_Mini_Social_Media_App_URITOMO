@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Hanken+Grotesk:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script>try{tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-container":"#b4b5b5","secondary":"#c6c6c7","on-primary-fixed-variant":"#6600b6","on-secondary-fixed":"#1a1c1c","inverse-on-surface":"#313030","on-tertiary-fixed":"#1c1b1b","primary":"#dbb8ff","on-primary-fixed":"#2b0052","primary-fixed-dim":"#dbb8ff","on-surface":"#e5e2e1","inverse-primary":"#8512e7","tertiary":"#c8c6c5","secondary-fixed":"#e2e2e2","background":"#131313","outline":"#988ca1","tertiary-fixed-dim":"#c8c6c5","outline-variant":"#4c4355","on-surface-variant":"#cfc2d8","surface-container-high":"#2a2a2a","on-primary":"#480082","inverse-surface":"#e5e2e1","on-tertiary-fixed-variant":"#474746","secondary-fixed-dim":"#c6c6c7","on-error":"#690005","secondary-container":"#454747","error":"#ffb4ab","surface-dim":"#131313","surface-variant":"#353534","surface-container":"#201f1f","primary-container":"#9d3bff","surface-container-low":"#1c1b1b","on-background":"#e5e2e1","error-container":"#93000a","tertiary-container":"#757474","surface-tint":"#dbb8ff","on-tertiary":"#313030","primary-fixed":"#efdbff","tertiary-fixed":"#e5e2e1","on-tertiary-container":"#fffbfb","on-primary-container":"#fffbff","surface-container-lowest":"#0e0e0e","on-secondary":"#2f3131","surface-container-highest":"#353534","surface":"#131313","on-error-container":"#ffdad6","on-secondary-fixed-variant":"#454747","surface-bright":"#3a3939"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{gutter:"12px","margin-desktop":"24px","margin-mobile":"16px",unit:"4px","container-max":"1200px"},fontFamily:{"body-md":["Plus Jakarta Sans"],"label-bold":["Hanken Grotesk"],"display-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"]},fontSize:{"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"label-bold":["12px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"700"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"800"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}]}}}}catch(_e){}</script><style>
+  :root { color-scheme: dark; }
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(219,184,255,0.16), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(133,18,231,0.16), transparent 34%),
+      linear-gradient(135deg, #0f0f14 0%, #15131b 100%);
+    min-height: 100vh;
+  }
+  .bg-surface-container-lowest,
+  .bg-surface-container,
+  .bg-surface-container-low,
+  .bg-surface-container-high {
+    background-color: rgba(23, 22, 30, 0.82) !important;
+    backdrop-filter: blur(16px);
+  }
+  .border-outline-variant\/40,
+  .border-outline-variant\/30,
+  .border-outline-variant {
+    border-color: rgba(255,255,255,0.08) !important;
+  }
+</style></head><body class="bg-background text-on-surface font-body-md">
+<nav class="h-screen w-64 hidden lg:flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-8 gap-y-4 z-50"><div class="px-6 mb-8"><img src="https://lh3.googleusercontent.com/aida/AP1WRLt039MXa5t6h24WsDJoD7xwqYgssquFRii3lzNaRxU96AKrFpbSNeW3JwmDzqJYXuZeRMs9fEgK_G2Z2HJy8_vqGkCAJmrl7ppqnSKMieAzaUEKAI1bOAeeyaa3JwCohaxDiDYIS3waU4gQPG3CLcj9ufUpksBjVunKUBsc3a07H-Cu_1SlNpDWx2VTRgNSRSAUGaz6H638EliWHMVr6ZzWLgjaeEbCT7k0UEwMGPsYi-NmOzeGR_NFNDE" alt="Uritomo" class="h-10 w-auto"></div>
+<nav class="flex flex-col w-full">
+<a href="/" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">home</span><span class="font-label-bold">Home</span></a>
+<a href="/search.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">search</span><span class="font-label-bold">Explore</span></a>
+<a href="/messages.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">chat_bubble</span><span class="font-label-bold">Messages</span></a>
+<a href="#" class="flex items-center px-6 py-4 gap-4 text-primary border-r-4 border-primary bg-primary/10"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">person</span><span class="font-label-bold">Profile</span></a>
+<a href="/settings.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">settings</span><span class="font-label-bold">Settings</span></a>
+</nav>
+<div class="mt-auto px-6"><button onclick="window.location.href='/'+''" class="w-full bg-primary text-on-primary font-label-bold py-4 rounded-xl">Post</button></div>
+</nav>
+<main class="lg:ml-64 min-h-screen pb-24 lg:pb-0">
+<div id="profile-content" class="max-w-4xl mx-auto px-4 md:px-6 pt-6">
+<div class="animate-pulse space-y-6"><div class="h-64 bg-surface-container rounded-xl"></div><div class="flex gap-6"><div class="w-32 h-32 bg-surface-container rounded-full"></div><div class="flex-1 space-y-4"><div class="h-8 bg-surface-container rounded w-1/3"></div><div class="h-4 bg-surface-container rounded w-1/4"></div></div></div></div>
+</div></main>
+<nav class="fixed bottom-0 w-full lg:hidden rounded-t-xl bg-surface-container/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 pb-safe z-50">
+<a href="/" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">home</span><span class="font-label-bold text-[10px]">Home</span></a>
+<a href="/search.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">search</span><span class="font-label-bold text-[10px]">Search</span></a>
+<a href="/messages.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">chat</span><span class="font-label-bold text-[10px]">Chat</span></a>
+<a href="#" class="flex flex-col items-center gap-1 text-primary scale-110"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">person</span><span class="font-label-bold text-[10px]">User</span></a>
+<a href="/settings.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">menu</span><span class="font-label-bold text-[10px]">Menu</span></a>
+</nav>
+<script src="/app.js"></script>
+<script>
+if (!requireAuth()) {}
+
+const urlParams = new URLSearchParams(window.location.search);
+const profileId = urlParams.get('id') || getUser()?.id;
+
+async function loadProfile() {
+  try {
+    const data = await getUserProfile(profileId);
+    const u = data.user;
+    const currentUser = getUser();
+    const isOwn = currentUser?.id === u.id;
+    const profileCompletion = getProfileCompletionStatus(u);
+
+    document.getElementById('profile-content').innerHTML = `
+      <div class="rounded-[32px] border border-outline-variant/40 bg-surface-container-lowest overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
+        <div class="h-40 md:h-56 bg-gradient-to-r from-primary/30 via-primary/10 to-surface-container-high"></div>
+        <div class="px-5 md:px-8 pb-8">
+          <div class="-mt-14 md:-mt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div class="flex flex-col md:flex-row items-start md:items-end gap-5">
+              <div class="relative">
+                <div class="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-background bg-surface-container-high overflow-hidden shadow-2xl">
+                  <img class="w-full h-full object-cover" src="${escapeHtml(u.avatar_url || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80')}" alt="${escapeHtml(u.display_name || u.username)}">
+                </div>
+                ${u.is_verified ? '<div class="absolute bottom-2 right-2 w-6 h-6 bg-primary rounded-full border-2 border-background flex items-center justify-center"><span class="material-symbols-outlined text-[12px] text-on-primary" style="font-variation-settings:\'FILL\'1">verified</span></div>' : ''}
+              </div>
+              <div class="pb-2">
+                <div class="flex items-center gap-2">
+                  <h1 class="font-headline-md text-headline-md text-on-surface">${escapeHtml(u.display_name || u.username)}</h1>
+                  ${u.is_pro ? '<span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-primary">Pro</span>' : ''}
+                </div>
+                <p class="text-on-surface-variant font-body-md">@${escapeHtml(u.username)}</p>
+              </div>
+            </div>
+            <div class="flex gap-3 pb-2">
+              ${!isOwn ? `<button onclick="toggleFollow('${u.id}', this)" class="px-6 py-3 bg-primary text-on-primary font-label-bold rounded-xl active:scale-95 transition-all" id="follow-btn">Follow</button>` : `<a href="/profile-setup.html"><button class="px-6 py-3 bg-primary-container text-on-primary-container font-label-bold rounded-xl active:scale-95 transition-all">Edit Profile</button></a>`}
+              ${isOwn ? `<a href="/settings.html"><button class="px-6 py-3 border border-outline-variant/40 bg-surface-container text-on-surface font-label-bold rounded-xl active:scale-95 transition-all">Settings</button></a>` : ''}
+            </div>
+          </div>
+
+          ${!profileCompletion.isComplete ? `
+            <div class="mt-6 rounded-2xl border border-primary/30 bg-primary/10 p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+              <div>
+                <p class="font-label-bold uppercase text-[11px] tracking-[0.2em] text-primary">Complete your profile</p>
+                <p class="text-on-surface-variant">Add a bio, photo, and a few details so your profile feels personal.</p>
+              </div>
+              <a href="/profile-setup.html" class="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2 text-on-primary font-label-bold">Finish setup</a>
+            </div>
+          ` : ''}
+
+          <div class="mt-8 grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+            <div>
+              <p class="font-body-lg text-body-lg text-on-surface leading-relaxed max-w-2xl">${escapeHtml(u.bio || 'Add a bio to tell people who you are.')}</p>
+              <div class="mt-6 flex flex-wrap gap-4">
+                ${u.location ? `<div class="flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-sm">location_on</span><span class="font-body-md">${escapeHtml(u.location)}</span></div>` : ''}
+                ${u.website ? `<div class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-sm">link</span><a class="font-body-md hover:underline" href="${escapeHtml(u.website)}" target="_blank">${escapeHtml(u.website)}</a></div>` : ''}
+                <div class="flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-sm">calendar_today</span><span class="font-body-md">Joined ${new Date(u.joined_date + 'Z').toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span></div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-4 text-center"><span class="font-headline-md text-headline-md text-primary">${u.follower_count}</span><span class="font-label-bold text-label-bold text-on-surface-variant block text-[10px] uppercase">Followers</span></div>
+              <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-4 text-center"><span class="font-headline-md text-headline-md text-primary">${u.following_count}</span><span class="font-label-bold text-label-bold text-on-surface-variant block text-[10px] uppercase">Following</span></div>
+              <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-4 text-center"><span class="font-headline-md text-headline-md text-primary">${u.post_count}</span><span class="font-label-bold text-label-bold text-on-surface-variant block text-[10px] uppercase">Posts</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="user-posts" class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 pb-12"></div>
+    `;
+
+    const postsData = await getUserPosts(profileId);
+    const postsGrid = document.getElementById('user-posts');
+    if (postsData.posts.length === 0) {
+      postsGrid.innerHTML = '<div class="col-span-3 text-center py-12 text-on-surface-variant">No posts yet.</div>';
+    } else {
+      postsGrid.innerHTML = postsData.posts.map(p => `
+        <div class="group relative aspect-square bg-surface-container-lowest border border-outline-variant/40 rounded-xl overflow-hidden cursor-pointer">
+          ${p.media_url ? `<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${escapeHtml(p.media_url)}">` : `<div class="w-full h-full flex items-center justify-center p-4 text-center text-on-surface-variant">${escapeHtml(p.content?.substring(0,100))}</div>`}
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-6">
+            <div class="flex items-center gap-1 text-white"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">favorite</span> ${p.like_count}</div>
+            <div class="flex items-center gap-1 text-white"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">chat_bubble</span> ${p.comment_count}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+  } catch (err) {
+    document.getElementById('profile-content').innerHTML = '<div class="text-center py-20"><p class="text-error">Failed to load profile</p></div>';
+  }
+}
+
+async function toggleFollow(userId, btn) {
+  try {
+    if (btn.textContent === 'Follow') {
+      await followUser(userId);
+      btn.textContent = 'Following';
+      btn.classList.remove('bg-primary', 'text-on-primary');
+      btn.classList.add('bg-surface-container', 'text-on-surface', 'border', 'border-outline-variant');
+      showToast('Followed!');
+    } else {
+      await unfollowUser(userId);
+      btn.textContent = 'Follow';
+      btn.classList.add('bg-primary', 'text-on-primary');
+      btn.classList.remove('bg-surface-container', 'text-on-surface', 'border', 'border-outline-variant');
+      showToast('Unfollowed');
+    }
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+loadProfile();
+</script>
+</body></html>
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Hanken+Grotesk:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script>try{tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-container":"#b4b5b5","secondary":"#c6c6c7","on-primary-fixed-variant":"#6600b6","on-secondary-fixed":"#1a1c1c","inverse-on-surface":"#313030","on-tertiary-fixed":"#1c1b1b","primary":"#dbb8ff","on-primary-fixed":"#2b0052","primary-fixed-dim":"#dbb8ff","on-surface":"#e5e2e1","inverse-primary":"#8512e7","tertiary":"#c8c6c5","secondary-fixed":"#e2e2e2","background":"#131313","outline":"#988ca1","tertiary-fixed-dim":"#c8c6c5","outline-variant":"#4c4355","on-surface-variant":"#cfc2d8","surface-container-high":"#2a2a2a","on-primary":"#480082","inverse-surface":"#e5e2e1","on-tertiary-fixed-variant":"#474746","secondary-fixed-dim":"#c6c6c7","on-error":"#690005","secondary-container":"#454747","error":"#ffb4ab","surface-dim":"#131313","surface-variant":"#353534","surface-container":"#201f1f","primary-container":"#9d3bff","surface-container-low":"#1c1b1b","on-background":"#e5e2e1","error-container":"#93000a","tertiary-container":"#757474","surface-tint":"#dbb8ff","on-tertiary":"#313030","primary-fixed":"#efdbff","tertiary-fixed":"#e5e2e1","on-tertiary-container":"#fffbfb","on-primary-container":"#fffbff","surface-container-lowest":"#0e0e0e","on-secondary":"#2f3131","surface-container-highest":"#353534","surface":"#131313","on-error-container":"#ffdad6","on-secondary-fixed-variant":"#454747","surface-bright":"#3a3939"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{gutter:"12px","margin-desktop":"24px","margin-mobile":"16px",unit:"4px","container-max":"1200px"},fontFamily:{"body-md":["Plus Jakarta Sans"],"label-bold":["Hanken Grotesk"],"display-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"]},fontSize:{"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"label-bold":["12px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"700"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"800"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}]}}}}catch(_e){}</script><style>
+  :root { color-scheme: dark; }
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(219,184,255,0.16), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(133,18,231,0.16), transparent 34%),
+      linear-gradient(135deg, #0f0f14 0%, #15131b 100%);
+    min-height: 100vh;
+  }
+  .bg-surface-container-lowest,
+  .bg-surface-container,
+  .bg-surface-container-low,
+  .bg-surface-container-high {
+    background-color: rgba(23, 22, 30, 0.82) !important;
+    backdrop-filter: blur(16px);
+  }
+  .border-outline-variant\/40,
+  .border-outline-variant\/30,
+  .border-outline-variant {
+    border-color: rgba(255,255,255,0.08) !important;
+  }
+</style></head><body class="bg-background text-on-surface font-body-md selection:bg-primary/30">
+<aside class="h-screen w-64 hidden lg:flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-8 gap-y-4 z-50"><div class="px-6 mb-8"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZ4poWhKw5GJPYIuAtGHZlgh06zRQSqfdzZ2FDmPFUgDBGSr30axPbJ6qx1XKMQ0PSxERUujCpwHaV0FLWkDnyJ7DvlheN7Et2eGMV4tl4ssw9CGd7suSgvLW9YZlPScZ_LlXoyDqErAJqZ_iKKJOKBB1FyzYvKjOcQe-dZudgT-WvUE9WPPoeRiGwCVPjA_0Oqx94Y1e2iCso3dlaEzOKb9BJSZ_pwaAqDevmHAKJGwf0KrxYu2AiT4hm9H0a8h4rMuFY16YUOxh-1g" alt="Uritomo" class="h-10 w-auto"></div>
+<nav class="flex flex-col w-full">
+<a href="/" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">home</span><span class="font-label-bold">Home</span></a>
+<a href="/search.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">search</span><span class="font-label-bold">Explore</span></a>
+<a href="/messages.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">chat_bubble</span><span class="font-label-bold">Messages</span></a>
+<a href="/profile.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">person</span><span class="font-label-bold">Profile</span></a>
+<a href="/settings.html" class="flex items-center px-6 py-4 gap-4 text-primary border-r-4 border-primary bg-primary/10"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">settings</span><span class="font-label-bold">Settings</span></a>
+</nav>
+<div class="mt-auto px-6"><button onclick="showCreatePostModal()" class="w-full bg-primary text-on-primary font-label-bold py-4 rounded-xl">Post</button></div>
+</aside>
+<main class="lg:ml-64 min-h-screen pb-24 lg:pb-0">
+<header class="fixed top-0 right-0 left-0 lg:left-64 h-16 flex items-center px-4 md:px-6 bg-background/70 backdrop-blur-xl border-b border-outline-variant/30 z-40"><a href="/" class="p-2 -ml-2 mr-4 hover:bg-surface-variant rounded-full"><span class="material-symbols-outlined text-primary">arrow_back</span></a><h2 class="font-headline-md text-headline-md text-on-surface">Settings</h2>
+<div class="ml-auto flex items-center gap-4"><a href="/profile.html"><div class="w-8 h-8 rounded-full bg-cover bg-center border border-outline-variant" id="settings-avatar"></div></a></div></header>
+<div class="pt-20 px-4 md:px-6 max-w-3xl mx-auto">
+<div class="space-y-6">
+<div class="bg-surface-container-lowest border border-outline-variant/40 p-6 rounded-xl"><h3 class="font-headline-md text-headline-md text-on-surface mb-6">Profile Information</h3>
+<div class="space-y-4">
+<div><label class="font-label-bold text-label-bold text-on-surface-variant block mb-2">Display Name</label><input type="text" id="edit-display" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary"></div>
+<div><label class="font-label-bold text-label-bold text-on-surface-variant block mb-2">Bio</label><textarea id="edit-bio" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary min-h-[80px]"></textarea></div>
+<div><label class="font-label-bold text-label-bold text-on-surface-variant block mb-2">Location</label><input type="text" id="edit-location" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary"></div>
+<div><label class="font-label-bold text-label-bold text-on-surface-variant block mb-2">Website</label><input type="url" id="edit-website" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary"></div>
+<div><label class="font-label-bold text-label-bold text-on-surface-variant block mb-2">Profile Photo</label><input type="file" id="edit-avatar-file" accept="image/*" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary"><img id="edit-avatar-preview" class="mt-3 hidden h-20 w-20 rounded-full object-cover border border-outline-variant/40" alt="Current profile preview"></div>
+<button onclick="saveProfile()" class="w-full bg-primary text-on-primary py-4 rounded-xl font-label-bold hover:shadow-[0_0_15px_rgba(219,184,255,0.3)] active:scale-95 transition-all">Save Changes</button>
+</div></div>
+<div class="bg-surface-container-lowest border border-outline-variant/40 p-6 rounded-xl"><h3 class="font-headline-md text-headline-md text-on-surface mb-6">Notifications</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between"><div><span class="font-body-lg text-body-lg text-on-surface">Push Notifications</span></div><label class="relative inline-flex items-center cursor-pointer"><input checked type="checkbox" class="sr-only peer"><div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:bg-primary peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div></label></div>
+<div class="flex items-center justify-between"><div><span class="font-body-lg text-body-lg text-on-surface">Email Digests</span></div><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" class="sr-only peer"><div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:bg-primary peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div></label></div>
+</div></div>
+<div class="pt-8"><button onclick="logout()" class="w-full p-4 rounded-xl border border-error/30 text-error hover:bg-error/10 font-body-lg transition-all active:scale-95 flex items-center justify-center gap-2"><span class="material-symbols-outlined">logout</span>Log Out</button></div>
+</div></div></main>
+<nav class="fixed bottom-0 w-full lg:hidden bg-surface-container/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 pb-safe z-50">
+<a href="/" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">home</span><span class="font-label-bold text-[10px]">Home</span></a>
+<a href="/search.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">search</span><span class="font-label-bold text-[10px]">Search</span></a>
+<a href="/messages.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">chat</span><span class="font-label-bold text-[10px]">Chat</span></a>
+<a href="/profile.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">person</span><span class="font-label-bold text-[10px]">User</span></a>
+<a href="/settings.html" class="flex flex-col items-center gap-1 text-primary scale-110"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">settings</span><span class="font-label-bold text-[10px]">Menu</span></a>
+</nav>
+<script src="/app.js"></script>
+<script>
+if (!requireAuth()) {}
+
+const user = getUser();
+
+function loadSettings() {
+  document.getElementById('edit-display').value = user.display_name || '';
+  document.getElementById('edit-bio').value = user.bio || '';
+  document.getElementById('edit-location').value = user.location || '';
+  document.getElementById('edit-website').value = user.website || '';
+  document.getElementById('settings-avatar').style.backgroundImage = `url('${user.avatar_url}')`;
+  if (user.avatar_url) {
+    document.getElementById('edit-avatar-preview').src = user.avatar_url;
+    document.getElementById('edit-avatar-preview').classList.remove('hidden');
+  }
+}
+
+async function saveProfile() {
+  let avatar_url = user.avatar_url || '';
+  const avatarFile = document.getElementById('edit-avatar-file').files?.[0];
+
+  if (avatarFile) {
+    avatar_url = await readFileAsDataUrl(avatarFile);
+  }
+
+  const data = {
+    display_name: document.getElementById('edit-display').value,
+    bio: document.getElementById('edit-bio').value,
+    location: document.getElementById('edit-location').value,
+    website: document.getElementById('edit-website').value,
+    avatar_url
+  };
+
+  try {
+    const result = await updateProfile(user.id, data);
+    localStorage.setItem('uritomo_user', JSON.stringify(result.user));
+    showToast('Profile updated!');
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+loadSettings();
+</script>
+</body></html>
+

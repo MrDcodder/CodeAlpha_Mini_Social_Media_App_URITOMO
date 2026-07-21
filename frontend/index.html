@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Hanken+Grotesk:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script>try{tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-container":"#b4b5b5","secondary":"#c6c6c7","on-primary-fixed-variant":"#6600b6","on-secondary-fixed":"#1a1c1c","inverse-on-surface":"#313030","on-tertiary-fixed":"#1c1b1b","primary":"#dbb8ff","on-primary-fixed":"#2b0052","primary-fixed-dim":"#dbb8ff","on-surface":"#e5e2e1","inverse-primary":"#8512e7","tertiary":"#c8c6c5","secondary-fixed":"#e2e2e2","background":"#131313","outline":"#988ca1","tertiary-fixed-dim":"#c8c6c5","outline-variant":"#4c4355","on-surface-variant":"#cfc2d8","surface-container-high":"#2a2a2a","on-primary":"#480082","inverse-surface":"#e5e2e1","on-tertiary-fixed-variant":"#474746","secondary-fixed-dim":"#c6c6c7","on-error":"#690005","secondary-container":"#454747","error":"#ffb4ab","surface-dim":"#131313","surface-variant":"#353534","surface-container":"#201f1f","primary-container":"#9d3bff","surface-container-low":"#1c1b1b","on-background":"#e5e2e1","error-container":"#93000a","tertiary-container":"#757474","surface-tint":"#dbb8ff","on-tertiary":"#313030","primary-fixed":"#efdbff","tertiary-fixed":"#e5e2e1","on-tertiary-container":"#fffbfb","on-primary-container":"#fffbff","surface-container-lowest":"#0e0e0e","on-secondary":"#2f3131","surface-container-highest":"#353534","surface":"#131313","on-error-container":"#ffdad6","on-secondary-fixed-variant":"#454747","surface-bright":"#3a3939"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{gutter:"12px","margin-desktop":"24px","margin-mobile":"16px",unit:"4px","container-max":"1200px"},fontFamily:{"body-md":["Plus Jakarta Sans"],"label-bold":["Hanken Grotesk"],"display-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"]},fontSize:{"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"label-bold":["12px",{lineHeight:"16px",letterSpacing:"0.05em",fontWeight:"700"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"800"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}]}}}}catch(_e){}</script><style>
+  :root { color-scheme: dark; }
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(219,184,255,0.16), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(133,18,231,0.16), transparent 34%),
+      linear-gradient(135deg, #0f0f14 0%, #15131b 100%);
+    min-height: 100vh;
+  }
+  .bg-surface-container-lowest,
+  .bg-surface-container,
+  .bg-surface-container-low,
+  .bg-surface-container-high {
+    background-color: rgba(23, 22, 30, 0.82) !important;
+    backdrop-filter: blur(16px);
+  }
+  .border-outline-variant\/40,
+  .border-outline-variant\/30,
+  .border-outline-variant {
+    border-color: rgba(255,255,255,0.08) !important;
+  }
+  .shadow-2xl,
+  .shadow-xl {
+    box-shadow: 0 16px 45px rgba(0,0,0,0.28) !important;
+  }
+</style></head><body class="font-body-md text-body-md selection:bg-primary/30">
+<!-- Background Shader -->
+<div class="fixed inset-0 w-full h-full z-[-1] opacity-40"><canvas id="shader-canvas" style="display:block;width:100%;height:100%"></canvas><script>(function(){const c=document.getElementById('shader-canvas');function s(){const w=c.clientWidth||1280,h=c.clientHeight||720;if(c.width!==w||c.height!==h){c.width=w;c.height=h}}if(typeof ResizeObserver!=='undefined'){new ResizeObserver(s).observe(c)}s();const gl=c.getContext('webgl')||c.getContext('experimental-webgl');if(!gl)return;const vs='attribute vec2 a_position;varying vec2 v_texCoord;void main(){v_texCoord=a_position*0.5+0.5;gl_Position=vec4(a_position,0.0,1.0);}';const fs='precision highp float;uniform float u_time;uniform vec2 u_resolution;varying vec2 v_texCoord;void main(){vec2 uv=v_texCoord;float noise=sin(uv.x*10.0+u_time)*cos(uv.y*10.0+u_time)*0.1;vec3 color=mix(vec3(0.05,0.05,0.07),vec3(0.12,0.1,0.2),uv.y+noise);gl_FragColor=vec4(color,1.0);}';function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh}const prog=gl.createProgram();gl.attachShader(prog,cs(gl.VERTEX_SHADER,vs));gl.attachShader(prog,cs(gl.FRAGMENT_SHADER,fs));gl.linkProgram(prog);gl.useProgram(prog);const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(prog,'a_position');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);const uT=gl.getUniformLocation(prog,'u_time');const uR=gl.getUniformLocation(prog,'u_resolution');const uM=gl.getUniformLocation(prog,'u_mouse');let mouse={x:c.width/2,y:c.height/2};window.addEventListener('mousemove',(e)=>{const rect=c.getBoundingClientRect();if(rect.width&&rect.height){const nx=(e.clientX-rect.left)/rect.width;const ny=1-(e.clientY-rect.top)/rect.height;mouse.x=nx*c.width;mouse.y=ny*c.height}});function r(t){if(typeof ResizeObserver==='undefined')s();gl.viewport(0,0,c.width,c.height);if(uT)gl.uniform1f(uT,t*0.001);if(uR)gl.uniform2f(uR,c.width,c.height);if(uM)gl.uniform2f(uM,mouse.x,mouse.y);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(r)}r(0)})();</script></div>
+<!-- Side Nav (Desktop) -->
+<aside class="h-screen w-64 hidden lg:flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-8 gap-y-4 z-40">
+<div class="px-6 mb-8"><img src="https://lh3.googleusercontent.com/aida/AP1WRLt039MXa5t6h24WsDJoD7xwqYgssquFRii3lzNaRxU96AKrFpbSNeW3JwmDzqJYXuZeRMs9fEgK_G2Z2HJy8_vqGkCAJmrl7ppqnSKMieAzaUEKAI1bOAeeyaa3JwCohaxDiDYIS3waU4gQPG3CLcj9ufUpksBjVunKUBsc3a07H-Cu_1SlNpDWx2VTRgNSRSAUGaz6H638EliWHMVr6ZzWLgjaeEbCT7k0UEwMGPsYi-NmOzeGR_NFNDE" alt="Uritomo" class="h-10 w-auto"></div>
+<nav class="flex flex-col w-full">
+<a href="/" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">home</span><span class="font-label-bold">Home</span></a>
+<a href="/search.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">search</span><span class="font-label-bold">Explore</span></a>
+<a href="/messages.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">chat_bubble</span><span class="font-label-bold">Messages</span></a>
+<a href="/profile.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant" id="nav-profile"><span class="material-symbols-outlined">person</span><span class="font-label-bold">Profile</span></a>
+<a href="/settings.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">settings</span><span class="font-label-bold">Settings</span></a>
+</nav>
+<div class="mt-auto px-6"><button onclick="showCreatePostModal()" class="w-full bg-primary text-on-primary font-label-bold py-4 rounded-xl hover:shadow-[0_0_15px_rgba(219,184,255,0.3)] active:scale-95 transition-all">Post</button></div>
+<div class="px-6 mt-2"><button onclick="logout()" class="w-full text-on-surface-variant font-label-bold py-2 text-sm hover:text-error transition-colors">Logout</button></div>
+</aside>
+<!-- Top Bar (Mobile) -->
+<header class="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-xl border-b border-outline-variant/30 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 lg:left-64 lg:w-[calc(100%-16rem)]">
+<img src="https://lh3.googleusercontent.com/aida/AP1WRLt039MXa5t6h24WsDJoD7xwqYgssquFRii3lzNaRxU96AKrFpbSNeW3JwmDzqJYXuZeRMs9fEgK_G2Z2HJy8_vqGkCAJmrl7ppqnSKMieAzaUEKAI1bOAeeyaa3JwCohaxDiDYIS3waU4gQPG3CLcj9ufUpksBjVunKUBsc3a07H-Cu_1SlNpDWx2VTRgNSRSAUGaz6H638EliWHMVr6ZzWLgjaeEbCT7k0UEwMGPsYi-NmOzeGR_NFNDE" alt="Uritomo" class="h-8 lg:hidden">
+<div class="flex items-center gap-4 ml-auto">
+<button class="material-symbols-outlined text-on-surface-variant" onclick="window.location.href='/notifications.html'">notifications</button>
+<a href="/profile.html"><div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden" id="topbar-avatar"><img class="w-full h-full object-cover" src="" id="topbar-avatar-img"></div></a>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-24 pb-32 lg:pl-64 lg:pr-80 min-h-screen">
+<div class="max-w-[700px] mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Feed Toggle -->
+<div class="flex p-1 bg-surface-container-low border border-outline-variant/30 rounded-full mb-8 sticky top-20 z-30 shadow-xl backdrop-blur-md">
+<button class="flex-1 py-3 rounded-full font-label-bold transition-all duration-300 bg-primary text-on-primary shadow-lg" onclick="switchFeed('multimedia')" id="toggle-multimedia">Multimedia</button>
+<button class="flex-1 py-3 rounded-full font-label-bold transition-all duration-300 text-on-surface-variant" onclick="switchFeed('literature')" id="toggle-literature">Literature</button>
+</div>
+<!-- Feeds -->
+<div id="multimedia-feed" class="space-y-8"></div>
+<div id="literature-feed" class="space-y-6 hidden"></div>
+<div id="feed-loader" class="text-center py-8 hidden"><div class="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div></div>
+</div></main>
+<!-- Right Sidebar -->
+<aside class="fixed right-0 top-16 h-[calc(100vh-4rem)] w-80 hidden lg:flex flex-col p-6 gap-6 border-l border-outline-variant/30 bg-background/40 backdrop-blur-md z-30">
+<div class="relative"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span><input class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded-full py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary focus:outline-none text-on-surface placeholder:text-on-surface-variant" placeholder="Search" type="text" onclick="window.location.href='/search.html'"></div>
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6"><h3 class="font-headline-md text-headline-md text-on-surface mb-6">Trending for you</h3><div id="trending-list" class="space-y-6"></div></div>
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6"><h3 class="font-headline-md text-headline-md text-on-surface mb-6">Who to follow</h3><div id="who-to-follow" class="space-y-4"></div></div>
+</aside>
+<!-- Bottom Nav (Mobile) -->
+<nav class="fixed bottom-0 w-full lg:hidden rounded-t-xl bg-surface-container/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 pb-safe z-50">
+<a href="/" class="flex flex-col items-center gap-1 text-primary scale-110"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">home</span><span class="font-label-bold text-[10px]">Home</span></a>
+<a href="/search.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">search</span><span class="font-label-bold text-[10px]">Search</span></a>
+<a href="/messages.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">chat</span><span class="font-label-bold text-[10px]">Chat</span></a>
+<a href="/profile.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">person</span><span class="font-label-bold text-[10px]">User</span></a>
+<a href="/settings.html" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">menu</span><span class="font-label-bold text-[10px]">Menu</span></a>
+</nav>
+<!-- Create Post Modal -->
+<div id="create-post-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden"><div class="bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-2xl"><div class="flex justify-between items-center mb-4"><h3 class="font-headline-md text-headline-md text-on-surface">Create Post</h3><button class="material-symbols-outlined text-on-surface-variant" onclick="hideCreatePostModal()">close</button></div>
+<textarea id="post-content" class="w-full bg-surface-container border border-outline-variant/30 rounded-xl p-4 text-on-surface min-h-[120px] focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="What's on your mind?"></textarea>
+<div class="flex gap-3 mt-4"><input type="text" id="post-media-url" class="flex-1 bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Image URL (optional)"></div>
+<div class="flex gap-3 mt-4">
+<select id="post-type" class="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary"><option value="multimedia">Multimedia</option><option value="literature">Literature</option></select>
+<button id="submit-post-btn" class="flex-1 bg-primary text-on-primary py-3 rounded-xl font-label-bold hover:shadow-[0_0_15px_rgba(219,184,255,0.3)] active:scale-95 transition-all">Publish</button>
+</div></div></div>
+<script src="/app.js"></script>
+<script>
+let currentFeed = 'multimedia';
+let currentPage = 1;
+let loading = false;
+
+// Check auth
+if (!requireAuth()) {}
+
+// Set user info
+const user = getUser();
+if (user) {
+  document.getElementById('topbar-avatar-img').src = user.avatar_url;
+  const profileLinks = document.querySelectorAll('#nav-profile');
+  profileLinks.forEach(el => {
+    el.href = `/profile.html?id=${user.id}`;
+  });
+}
+
+// Load feed
+async function loadFeed(type, page = 1, append = false) {
+  if (loading) return;
+  loading = true;
+  document.getElementById('feed-loader').classList.remove('hidden');
+  
+  try {
+    const data = await getPosts(type, page, 5);
+    const container = document.getElementById(type === 'literature' ? 'literature-feed' : 'multimedia-feed');
+    
+    if (!append) container.innerHTML = '';
+    
+    if (data.posts.length === 0 && !append) {
+      container.innerHTML = '<div class="text-center py-12 text-on-surface-variant"><span class="material-symbols-outlined text-4xl mb-4">inbox</span><p>No posts yet. Be the first!</p></div>';
+      return;
+    }
+    
+    data.posts.forEach(post => {
+      container.appendChild(createPostElement(post));
+    });
+    
+    currentPage = page;
+  } catch (err) {
+    showToast('Failed to load feed', 'error');
+  } finally {
+    loading = false;
+    document.getElementById('feed-loader').classList.add('hidden');
+  }
+}
+
+function createPostElement(post) {
+  const article = document.createElement('article');
+  article.className = 'bg-surface-container-lowest border border-outline-variant/40 rounded-xl overflow-hidden shadow-2xl group';
+  
+  let mediaHtml = '';
+  if (post.media_url) {
+    mediaHtml = `<div class="aspect-square bg-surface-container-high relative overflow-hidden"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${escapeHtml(post.media_url)}" alt="Post media"></div>`;
+  }
+  
+  const tagsHtml = post.tags ? `<p class="text-body-md">${post.tags.split(',').map(t => `<span class="text-primary">#${t.trim()}</span>`).join(' ')}</p>` : '';
+  
+  article.innerHTML = `
+    <div class="p-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full border-2 border-primary/30 p-0.5">
+          <img class="w-full h-full rounded-full object-cover" src="${escapeHtml(post.avatar_url)}" alt="${escapeHtml(post.username)}">
+        </div>
+        <div>
+          <p class="font-label-bold text-on-surface">${escapeHtml(post.display_name || post.username)} ${post.is_verified ? '<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings:\'FILL\'1;font-size:14px">verified</span>' : ''}</p>
+          <p class="text-[10px] text-on-surface-variant"><a href="/profile.html?id=${post.user_id}" class="hover:text-primary">@${escapeHtml(post.username)}</a> • ${formatTime(post.created_at)}</p>
+        </div>
+      </div>
+      <button class="material-symbols-outlined text-on-surface-variant">more_horiz</button>
+    </div>
+    ${mediaHtml}
+    <div class="p-4 space-y-3">
+      <div class="flex items-center gap-5">
+        <button class="social-btn material-symbols-outlined ${post.is_liked ? 'text-error' : 'text-on-surface'}" onclick="toggleLike('${post.id}', this)" data-liked="${post.is_liked ? 'true' : 'false'}">${post.is_liked ? 'favorite' : 'favorite'}</button>
+        <button class="social-btn material-symbols-outlined text-on-surface" onclick="showComments('${post.id}')">chat_bubble</button>
+        <button class="social-btn material-symbols-outlined text-on-surface">send</button>
+        <button class="ml-auto social-btn material-symbols-outlined ${post.is_bookmarked ? 'text-primary' : 'text-on-surface'}" onclick="toggleBookmark('${post.id}', this)" data-bookmarked="${post.is_bookmarked ? 'true' : 'false'}">bookmark</button>
+      </div>
+      <p class="text-body-md"><span class="font-bold mr-2">${escapeHtml(post.display_name || post.username)}</span>${escapeHtml(post.content || '')}</p>
+      ${tagsHtml}
+      <p class="text-[12px] text-on-surface-variant cursor-pointer hover:text-primary transition-colors" onclick="showComments('${post.id}')">View all ${post.comment_count} comments</p>
+    </div>
+  `;
+  
+  return article;
+}
+
+// Feed switching
+function switchFeed(type) {
+  currentFeed = type;
+  const multiBtn = document.getElementById('toggle-multimedia');
+  const litBtn = document.getElementById('toggle-literature');
+  const multiFeed = document.getElementById('multimedia-feed');
+  const litFeed = document.getElementById('literature-feed');
+  
+  if (type === 'multimedia') {
+    multiBtn.classList.add('bg-primary', 'text-on-primary', 'shadow-lg');
+    multiBtn.classList.remove('text-on-surface-variant');
+    litBtn.classList.remove('bg-primary', 'text-on-primary', 'shadow-lg');
+    litBtn.classList.add('text-on-surface-variant');
+    litFeed.classList.add('hidden');
+    multiFeed.classList.remove('hidden');
+  } else {
+    litBtn.classList.add('bg-primary', 'text-on-primary', 'shadow-lg');
+    litBtn.classList.remove('text-on-surface-variant');
+    multiBtn.classList.remove('bg-primary', 'text-on-primary', 'shadow-lg');
+    multiBtn.classList.add('text-on-surface-variant');
+    multiFeed.classList.add('hidden');
+    litFeed.classList.remove('hidden');
+  }
+  currentPage = 1;
+  loadFeed(type);
+}
+
+// Like toggle
+async function toggleLike(postId, btn) {
+  if (!requireAuth()) return;
+  const isLiked = btn.dataset.liked === 'true';
+  try {
+    if (isLiked) {
+      await unlikePost(postId);
+      btn.dataset.liked = 'false';
+      btn.classList.remove('text-error');
+      btn.classList.add('text-on-surface');
+    } else {
+      await likePost(postId);
+      btn.dataset.liked = 'true';
+      btn.classList.add('text-error');
+      btn.classList.remove('text-on-surface');
+      showToast('Post liked!');
+    }
+    btn.style.transform = 'scale(1.5)';
+    setTimeout(() => btn.style.transform = '', 200);
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+// Bookmark toggle
+async function toggleBookmark(postId, btn) {
+  if (!requireAuth()) return;
+  const isBookmarked = btn.dataset.bookmarked === 'true';
+  try {
+    if (isBookmarked) {
+      await unbookmarkPost(postId);
+      btn.dataset.bookmarked = 'false';
+      btn.classList.remove('text-primary');
+      btn.classList.add('text-on-surface');
+    } else {
+      await bookmarkPost(postId);
+      btn.dataset.bookmarked = 'true';
+      btn.classList.add('text-primary');
+      btn.classList.remove('text-on-surface');
+      showToast('Post saved!');
+    }
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+}
+
+// Comments modal
+function showComments(postId) {
+  window.location.href = `/post.html?id=${postId}`;
+}
+
+// Create post modal
+function showCreatePostModal() {
+  document.getElementById('create-post-modal').classList.remove('hidden');
+}
+
+function hideCreatePostModal() {
+  document.getElementById('create-post-modal').classList.add('hidden');
+}
+
+document.getElementById('submit-post-btn').addEventListener('click', async () => {
+  const content = document.getElementById('post-content').value;
+  const mediaUrl = document.getElementById('post-media-url').value;
+  const type = document.getElementById('post-type').value;
+  
+  if (!content && !mediaUrl) {
+    showToast('Add some content!', 'error');
+    return;
+  }
+  
+  try {
+    await createPost(content || null, type, mediaUrl || null);
+    showToast('Post published!');
+    hideCreatePostModal();
+    document.getElementById('post-content').value = '';
+    document.getElementById('post-media-url').value = '';
+    loadFeed(currentFeed);
+  } catch (err) {
+    showToast(err.message, 'error');
+  }
+});
+
+// Load trending
+async function loadTrending() {
+  try {
+    const data = await getTrending();
+    const list = document.getElementById('trending-list');
+    list.innerHTML = data.trending.map(t => `
+      <div class="cursor-pointer group">
+        <p class="text-[10px] text-on-surface-variant">${escapeHtml(t.category)} • Trending</p>
+        <p class="font-label-bold text-on-surface group-hover:text-primary transition-colors">${escapeHtml(t.name)}</p>
+        <p class="text-[10px] text-on-surface-variant">${t.post_count.toLocaleString()} Posts</p>
+      </div>
+    `).join('');
+  } catch (err) {}
+}
+
+loadTrending();
+
+// Load initial feed
+loadFeed('multimedia');
+
+// Infinite scroll
+window.addEventListener('scroll', async () => {
+  if (loading) return;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const scrollTop = window.scrollY;
+  const clientHeight = window.innerHeight;
+  
+  if (scrollTop + clientHeight >= scrollHeight - 400) {
+    await loadFeed(currentFeed, currentPage + 1, true);
+  }
+});
+</script>
+</body></html>
+
