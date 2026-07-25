@@ -152,7 +152,7 @@ This project is created for educational purposes as part of the **CodeAlpha Inte
 
 👨‍💻 Author
 
-**Dhairya (MrDcodder)**
+**Diwyesh_Nerkar (MrDcodder)**
 
 - GitHub: https://github.com/MrDcodder
 
