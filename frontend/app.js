@@ -276,3 +276,41 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+// ============== AVATAR HELPERS ==============
+function getInitials(name) {
+  if (!name) return '?';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+}
+
+function getAvatarHtml(user, size = 40, classes = '') {
+  const name = user?.display_name || user?.username || 'User';
+  const avatarUrl = user?.avatar_url;
+  
+  if (avatarUrl) {
+    return `<img class="w-full h-full object-cover ${classes}" src="${escapeHtml(avatarUrl)}" alt="${escapeHtml(name)}">`;
+  }
+  
+  const initials = getInitials(name);
+  const fontSize = Math.max(10, size * 0.35);
+  
+  return `<div class="w-full h-full flex items-center justify-center bg-primary/20 text-primary font-bold ${classes}" style="font-size:${fontSize}px">${initials}</div>`;
+}
+
+function getAvatarImgTag(user, size = 40, imgClasses = '', containerClasses = '') {
+  const name = user?.display_name || user?.username || 'User';
+  const avatarUrl = user?.avatar_url;
+  
+  if (avatarUrl) {
+    return `<img class="w-full h-full object-cover ${imgClasses}" src="${escapeHtml(avatarUrl)}" alt="${escapeHtml(name)}">`;
+  }
+  
+  const initials = getInitials(name);
+  const fontSize = Math.max(10, size * 0.35);
+  
+  return `<div class="w-full h-full flex items-center justify-center bg-primary/20 text-primary font-bold ${imgClasses}" style="font-size:${fontSize}px">${initials}</div>`;
+}
+

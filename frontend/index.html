@@ -28,7 +28,7 @@
 <div class="fixed inset-0 w-full h-full z-[-1] opacity-40"><canvas id="shader-canvas" style="display:block;width:100%;height:100%"></canvas><script>(function(){const c=document.getElementById('shader-canvas');function s(){const w=c.clientWidth||1280,h=c.clientHeight||720;if(c.width!==w||c.height!==h){c.width=w;c.height=h}}if(typeof ResizeObserver!=='undefined'){new ResizeObserver(s).observe(c)}s();const gl=c.getContext('webgl')||c.getContext('experimental-webgl');if(!gl)return;const vs='attribute vec2 a_position;varying vec2 v_texCoord;void main(){v_texCoord=a_position*0.5+0.5;gl_Position=vec4(a_position,0.0,1.0);}';const fs='precision highp float;uniform float u_time;uniform vec2 u_resolution;varying vec2 v_texCoord;void main(){vec2 uv=v_texCoord;float noise=sin(uv.x*10.0+u_time)*cos(uv.y*10.0+u_time)*0.1;vec3 color=mix(vec3(0.05,0.05,0.07),vec3(0.12,0.1,0.2),uv.y+noise);gl_FragColor=vec4(color,1.0);}';function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh}const prog=gl.createProgram();gl.attachShader(prog,cs(gl.VERTEX_SHADER,vs));gl.attachShader(prog,cs(gl.FRAGMENT_SHADER,fs));gl.linkProgram(prog);gl.useProgram(prog);const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(prog,'a_position');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);const uT=gl.getUniformLocation(prog,'u_time');const uR=gl.getUniformLocation(prog,'u_resolution');const uM=gl.getUniformLocation(prog,'u_mouse');let mouse={x:c.width/2,y:c.height/2};window.addEventListener('mousemove',(e)=>{const rect=c.getBoundingClientRect();if(rect.width&&rect.height){const nx=(e.clientX-rect.left)/rect.width;const ny=1-(e.clientY-rect.top)/rect.height;mouse.x=nx*c.width;mouse.y=ny*c.height}});function r(t){if(typeof ResizeObserver==='undefined')s();gl.viewport(0,0,c.width,c.height);if(uT)gl.uniform1f(uT,t*0.001);if(uR)gl.uniform2f(uR,c.width,c.height);if(uM)gl.uniform2f(uM,mouse.x,mouse.y);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(r)}r(0)})();</script></div>
 <!-- Side Nav (Desktop) -->
 <aside class="h-screen w-64 hidden lg:flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-8 gap-y-4 z-40">
-<div class="px-6 mb-8"><img src="https://lh3.googleusercontent.com/aida/AP1WRLt039MXa5t6h24WsDJoD7xwqYgssquFRii3lzNaRxU96AKrFpbSNeW3JwmDzqJYXuZeRMs9fEgK_G2Z2HJy8_vqGkCAJmrl7ppqnSKMieAzaUEKAI1bOAeeyaa3JwCohaxDiDYIS3waU4gQPG3CLcj9ufUpksBjVunKUBsc3a07H-Cu_1SlNpDWx2VTRgNSRSAUGaz6H638EliWHMVr6ZzWLgjaeEbCT7k0UEwMGPsYi-NmOzeGR_NFNDE" alt="Uritomo" class="h-10 w-auto"></div>
+<div class="px-6 mb-8"><img src="/logo.png" alt="Uritomo" class="h-10 w-auto"></div>
 <nav class="flex flex-col w-full">
 <a href="/" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">home</span><span class="font-label-bold">Home</span></a>
 <a href="/search.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">search</span><span class="font-label-bold">Explore</span></a>
@@ -41,10 +41,10 @@
 </aside>
 <!-- Top Bar (Mobile) -->
 <header class="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-xl border-b border-outline-variant/30 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 lg:left-64 lg:w-[calc(100%-16rem)]">
-<img src="https://lh3.googleusercontent.com/aida/AP1WRLt039MXa5t6h24WsDJoD7xwqYgssquFRii3lzNaRxU96AKrFpbSNeW3JwmDzqJYXuZeRMs9fEgK_G2Z2HJy8_vqGkCAJmrl7ppqnSKMieAzaUEKAI1bOAeeyaa3JwCohaxDiDYIS3waU4gQPG3CLcj9ufUpksBjVunKUBsc3a07H-Cu_1SlNpDWx2VTRgNSRSAUGaz6H638EliWHMVr6ZzWLgjaeEbCT7k0UEwMGPsYi-NmOzeGR_NFNDE" alt="Uritomo" class="h-8 lg:hidden">
+<img src="/logo.png" alt="Uritomo" class="h-8 lg:hidden">
 <div class="flex items-center gap-4 ml-auto">
 <button class="material-symbols-outlined text-on-surface-variant" onclick="window.location.href='/notifications.html'">notifications</button>
-<a href="/profile.html"><div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden" id="topbar-avatar"><img class="w-full h-full object-cover" src="" id="topbar-avatar-img"></div></a>
+<a href="/profile.html"><div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden" id="topbar-avatar"></div></a>
 </div>
 </header>
 <!-- Main Content -->
@@ -58,13 +58,13 @@
 <!-- Feeds -->
 <div id="multimedia-feed" class="space-y-8"></div>
 <div id="literature-feed" class="space-y-6 hidden"></div>
-<div id="feed-loader" class="text-center py-8 hidden"><div class="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div></div>
+<div id="feed-loader" class="text-center py-8 hidden"><div class="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
 </div></main>
 <!-- Right Sidebar -->
 <aside class="fixed right-0 top-16 h-[calc(100vh-4rem)] w-80 hidden lg:flex flex-col p-6 gap-6 border-l border-outline-variant/30 bg-background/40 backdrop-blur-md z-30">
 <div class="relative"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span><input class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded-full py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary focus:outline-none text-on-surface placeholder:text-on-surface-variant" placeholder="Search" type="text" onclick="window.location.href='/search.html'"></div>
-<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6"><h3 class="font-headline-md text-headline-md text-on-surface mb-6">Trending for you</h3><div id="trending-list" class="space-y-6"></div></div>
-<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6"><h3 class="font-headline-md text-headline-md text-on-surface mb-6">Who to follow</h3><div id="who-to-follow" class="space-y-4"></div></div>
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6"><h3 class="font-headline-md text-headline-md text-on-surface mb-6">Trending for you</h3><div id="trending-list" class="space-y-6"></div>
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6"><h3 class="font-headline-md text-headline-md text-on-surface mb-6">Who to follow</h3><div id="who-to-follow" class="space-y-4"></div>
 </aside>
 <!-- Bottom Nav (Mobile) -->
 <nav class="fixed bottom-0 w-full lg:hidden rounded-t-xl bg-surface-container/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 pb-safe z-50">
@@ -81,7 +81,7 @@
 <div class="flex gap-3 mt-4">
 <select id="post-type" class="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary"><option value="multimedia">Multimedia</option><option value="literature">Literature</option></select>
 <button id="submit-post-btn" class="flex-1 bg-primary text-on-primary py-3 rounded-xl font-label-bold hover:shadow-[0_0_15px_rgba(219,184,255,0.3)] active:scale-95 transition-all">Publish</button>
-</div></div></div>
+</div></div>
 <script src="/app.js"></script>
 <script>
 let currentFeed = 'multimedia';
@@ -94,7 +94,7 @@ if (!requireAuth()) {}
 // Set user info
 const user = getUser();
 if (user) {
-  document.getElementById('topbar-avatar-img').src = user.avatar_url;
+  document.getElementById('topbar-avatar').innerHTML = getAvatarHtml(user, 32);
   const profileLinks = document.querySelectorAll('#nav-profile');
   profileLinks.forEach(el => {
     el.href = `/profile.html?id=${user.id}`;
@@ -142,17 +142,18 @@ function createPostElement(post) {
   
   const tagsHtml = post.tags ? `<p class="text-body-md">${post.tags.split(',').map(t => `<span class="text-primary">#${t.trim()}</span>`).join(' ')}</p>` : '';
   
+  const postUser = { display_name: post.display_name, username: post.username, avatar_url: post.avatar_url };
+  
   article.innerHTML = `
     <div class="p-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full border-2 border-primary/30 p-0.5">
-          <img class="w-full h-full rounded-full object-cover" src="${escapeHtml(post.avatar_url)}" alt="${escapeHtml(post.username)}">
+          ${getAvatarHtml(postUser, 36, 'rounded-full')}
         </div>
         <div>
           <p class="font-label-bold text-on-surface">${escapeHtml(post.display_name || post.username)} ${post.is_verified ? '<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings:\'FILL\'1;font-size:14px">verified</span>' : ''}</p>
           <p class="text-[10px] text-on-surface-variant"><a href="/profile.html?id=${post.user_id}" class="hover:text-primary">@${escapeHtml(post.username)}</a> • ${formatTime(post.created_at)}</p>
         </div>
-      </div>
       <button class="material-symbols-outlined text-on-surface-variant">more_horiz</button>
     </div>
     ${mediaHtml}
@@ -314,4 +315,3 @@ window.addEventListener('scroll', async () => {
 });
 </script>
 </body></html>
-

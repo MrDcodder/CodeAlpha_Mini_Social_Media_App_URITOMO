@@ -20,7 +20,7 @@
     border-color: rgba(255,255,255,0.08) !important;
   }
 </style></head><body class="bg-background text-on-surface font-body-md">
-<nav class="h-screen w-64 hidden lg:flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-8 gap-y-4 z-50"><div class="px-6 mb-8"><img src="https://lh3.googleusercontent.com/aida/AP1WRLt039MXa5t6h24WsDJoD7xwqYgssquFRii3lzNaRxU96AKrFpbSNeW3JwmDzqJYXuZeRMs9fEgK_G2Z2HJy8_vqGkCAJmrl7ppqnSKMieAzaUEKAI1bOAeeyaa3JwCohaxDiDYIS3waU4gQPG3CLcj9ufUpksBjVunKUBsc3a07H-Cu_1SlNpDWx2VTRgNSRSAUGaz6H638EliWHMVr6ZzWLgjaeEbCT7k0UEwMGPsYi-NmOzeGR_NFNDE" alt="Uritomo" class="h-10 w-auto"></div>
+<nav class="h-screen w-64 hidden lg:flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-8 gap-y-4 z-50"><div class="px-6 mb-8"><img src="/logo.png" alt="Uritomo" class="h-10 w-auto"></div>
 <nav class="flex flex-col w-full">
 <a href="/" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">home</span><span class="font-label-bold">Home</span></a>
 <a href="/search.html" class="flex items-center px-6 py-4 gap-4 text-on-surface-variant hover:bg-surface-variant"><span class="material-symbols-outlined">search</span><span class="font-label-bold">Explore</span></a>
@@ -32,7 +32,7 @@
 </nav>
 <main class="lg:ml-64 min-h-screen pb-24 lg:pb-0">
 <div id="profile-content" class="max-w-4xl mx-auto px-4 md:px-6 pt-6">
-<div class="animate-pulse space-y-6"><div class="h-64 bg-surface-container rounded-xl"></div><div class="flex gap-6"><div class="w-32 h-32 bg-surface-container rounded-full"></div><div class="flex-1 space-y-4"><div class="h-8 bg-surface-container rounded w-1/3"></div><div class="h-4 bg-surface-container rounded w-1/4"></div></div></div></div>
+<div class="animate-pulse space-y-6"><div class="h-64 bg-surface-container rounded-xl"></div><div class="flex gap-6"><div class="w-32 h-32 bg-surface-container rounded-full"></div><div class="flex-1 space-y-4"><div class="h-8 bg-surface-container rounded w-1/3"></div><div class="h-4 bg-surface-container rounded w-1/4"></div></div>
 </div></main>
 <nav class="fixed bottom-0 w-full lg:hidden rounded-t-xl bg-surface-container/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center h-20 pb-safe z-50">
 <a href="/" class="flex flex-col items-center gap-1 text-on-secondary-container"><span class="material-symbols-outlined">home</span><span class="font-label-bold text-[10px]">Home</span></a>
@@ -55,6 +55,7 @@ async function loadProfile() {
     const currentUser = getUser();
     const isOwn = currentUser?.id === u.id;
     const profileCompletion = getProfileCompletionStatus(u);
+    const profileUser = { display_name: u.display_name, username: u.username, avatar_url: u.avatar_url };
 
     document.getElementById('profile-content').innerHTML = `
       <div class="rounded-[32px] border border-outline-variant/40 bg-surface-container-lowest overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
@@ -64,7 +65,7 @@ async function loadProfile() {
             <div class="flex flex-col md:flex-row items-start md:items-end gap-5">
               <div class="relative">
                 <div class="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-background bg-surface-container-high overflow-hidden shadow-2xl">
-                  <img class="w-full h-full object-cover" src="${escapeHtml(u.avatar_url || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80')}" alt="${escapeHtml(u.display_name || u.username)}">
+                  ${getAvatarHtml(profileUser, 144)}
                 </div>
                 ${u.is_verified ? '<div class="absolute bottom-2 right-2 w-6 h-6 bg-primary rounded-full border-2 border-background flex items-center justify-center"><span class="material-symbols-outlined text-[12px] text-on-primary" style="font-variation-settings:\'FILL\'1">verified</span></div>' : ''}
               </div>
@@ -75,12 +76,10 @@ async function loadProfile() {
                 </div>
                 <p class="text-on-surface-variant font-body-md">@${escapeHtml(u.username)}</p>
               </div>
-            </div>
             <div class="flex gap-3 pb-2">
               ${!isOwn ? `<button onclick="toggleFollow('${u.id}', this)" class="px-6 py-3 bg-primary text-on-primary font-label-bold rounded-xl active:scale-95 transition-all" id="follow-btn">Follow</button>` : `<a href="/profile-setup.html"><button class="px-6 py-3 bg-primary-container text-on-primary-container font-label-bold rounded-xl active:scale-95 transition-all">Edit Profile</button></a>`}
               ${isOwn ? `<a href="/settings.html"><button class="px-6 py-3 border border-outline-variant/40 bg-surface-container text-on-surface font-label-bold rounded-xl active:scale-95 transition-all">Settings</button></a>` : ''}
             </div>
-          </div>
 
           ${!profileCompletion.isComplete ? `
             <div class="mt-6 rounded-2xl border border-primary/30 bg-primary/10 p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
@@ -99,15 +98,12 @@ async function loadProfile() {
                 ${u.location ? `<div class="flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-sm">location_on</span><span class="font-body-md">${escapeHtml(u.location)}</span></div>` : ''}
                 ${u.website ? `<div class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-sm">link</span><a class="font-body-md hover:underline" href="${escapeHtml(u.website)}" target="_blank">${escapeHtml(u.website)}</a></div>` : ''}
                 <div class="flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-sm">calendar_today</span><span class="font-body-md">Joined ${new Date(u.joined_date + 'Z').toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span></div>
-              </div>
             </div>
             <div class="grid grid-cols-3 gap-2">
               <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-4 text-center"><span class="font-headline-md text-headline-md text-primary">${u.follower_count}</span><span class="font-label-bold text-label-bold text-on-surface-variant block text-[10px] uppercase">Followers</span></div>
               <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-4 text-center"><span class="font-headline-md text-headline-md text-primary">${u.following_count}</span><span class="font-label-bold text-label-bold text-on-surface-variant block text-[10px] uppercase">Following</span></div>
               <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-4 text-center"><span class="font-headline-md text-headline-md text-primary">${u.post_count}</span><span class="font-label-bold text-label-bold text-on-surface-variant block text-[10px] uppercase">Posts</span></div>
-            </div>
           </div>
-        </div>
       </div>
       <div id="user-posts" class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 pb-12"></div>
     `;
@@ -123,7 +119,6 @@ async function loadProfile() {
           <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-6">
             <div class="flex items-center gap-1 text-white"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">favorite</span> ${p.like_count}</div>
             <div class="flex items-center gap-1 text-white"><span class="material-symbols-outlined" style="font-variation-settings:'FILL'1">chat_bubble</span> ${p.comment_count}</div>
-          </div>
         </div>
       `).join('');
     }
@@ -155,4 +150,3 @@ async function toggleFollow(userId, btn) {
 loadProfile();
 </script>
 </body></html>
-
