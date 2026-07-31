@@ -1,6 +1,6 @@
  URITOMO - Mini Social Media App
 
-A modern Mini Social Media web application developed as part of the **CodeAlpha Internship**. URITOMO enables users to connect, share posts, and interact with others through a clean and responsive interface.
+URITOMO enables users to connect, share posts, and interact with others through a clean and responsive interface.
 
 🚀 Features
 
@@ -34,7 +34,7 @@ Other Tools
 📂 Project Structure
 
 ```
-CodeAlpha_Mini_Social_Media_App_URITOMO/
+Mini_Social_Media_App_URITOMO/
 │
 ├── client/              # Frontend
 ├── server/              # Backend
@@ -53,13 +53,13 @@ CodeAlpha_Mini_Social_Media_App_URITOMO/
 1. Clone the repository
 
 ```bash
-git clone https://github.com/MrDcodder/CodeAlpha_Mini_Social_Media_App_URITOMO.git
+git clone https://github.com/MrDcodder/Mini_Social_Media_App_URITOMO.git
 ```
 
 2. Navigate to the project directory
 
 ```bash
-cd CodeAlpha_Mini_Social_Media_App_URITOMO
+cd Mini_Social_Media_App_URITOMO
 ```
 
 3. Install dependencies
@@ -141,12 +141,6 @@ git push origin feature-name
 ```
 
 5. Open a Pull Request
-
----
-
-📄 License
-
-This project is created for educational purposes as part of the **CodeAlpha Internship**.
 
 ---
 
